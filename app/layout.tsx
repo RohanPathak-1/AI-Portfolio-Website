@@ -20,7 +20,7 @@ export const metadata: Metadata = {
     url: "/",
   },
   twitter: { card: "summary_large_image", title: `${siteConfig.name} | ${siteConfig.title}`, description: siteConfig.description },
-  icons: { icon: "/favicon.svg", shortcut: "/favicon.svg" },
+  icons: { icon: "/rohan-pathak-logo.png", shortcut: "/rohan-pathak-logo.png" },
 };
 
 export const viewport: Viewport = { width: "device-width", initialScale: 1, themeColor: "#071a2f" };
