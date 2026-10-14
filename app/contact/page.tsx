@@ -1,0 +1,11 @@
+import type { Metadata } from "next";
+import Link from "next/link";
+import { ArrowRight, ClipboardCheck, Lightbulb, MessagesSquare, SearchCheck } from "lucide-react";
+import { ContactForm } from "@/components/contact-form";
+
+export const metadata: Metadata = {title:"Contact & Free Consultation",description:"Book a free consultation to discuss your business goals, marketing challenges, and practical AI-powered growth opportunities.",alternates:{canonical:"/contact"}};
+
+export default function ContactPage(){return <>
+  <section className="page-hero"><div className="container"><div className="breadcrumb"><Link href="/">Home</Link><span>/</span><span>Contact</span></div><div className="eyebrow">Start with a useful conversation</div><h1>Let’s talk about growing your business.</h1><p>Tell me a little about your business and the challenges you’re facing. Let’s explore how AI-powered digital marketing can help you reach your goals.</p></div></section>
+  <section className="section-pad"><div className="container contact-grid"><div><div className="booking-panel" id="book"><div className="eyebrow light">Option A · Recommended</div><h2>Book a free consultation call</h2><p>Let’s discuss your challenges, identify useful opportunities, and shape a customized Digital Marketing Plan you can begin implementing.</p><p><strong>Calendar connection required:</strong> replace the booking URL in <code>config/site.ts</code> to send visitors to your live scheduling page.</p><Link className="button button-light" href="#message">Use the inquiry form for now <ArrowRight size={16}/></Link></div><div className="contact-benefits">{[[SearchCheck,"Initial business assessment","A focused review of your current situation and priorities."],[Lightbulb,"Opportunity identification","A practical look at where marketing could work harder for you."],[MessagesSquare,"Personalized recommendations","Ideas shaped around your audience, resources, and goals."],[ClipboardCheck,"Actionable growth plan","A clear Digital Marketing Plan you can begin putting to work."]].map(([Icon,title,copy])=><article key={String(title)}><Icon size={21}/><div><h3>{String(title)}</h3><p>{String(copy)}</p></div></article>)}</div></div><div id="message"><div className="eyebrow">Option B · Send an inquiry</div><ContactForm/></div></div></section>
+</>}
