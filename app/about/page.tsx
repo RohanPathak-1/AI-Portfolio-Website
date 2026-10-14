@@ -1,25 +1,77 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowRight, Building2, CheckCircle2, Compass, Handshake, Target } from "lucide-react";
+import { ArrowRight, Target } from "lucide-react";
 import { ConsultationCta } from "@/components/consultation-cta";
 import { ProfileVisual } from "@/components/profile-visual";
 import { siteConfig } from "@/config/site";
 
 export const metadata: Metadata = {
   title: "About Me",
-  description: "Meet Rohan Pathak, an AI Marketing Expert focused on practical, business-first digital marketing for growing companies.",
+  description: "Meet Rohan Pathak, an AI Marketing Expert helping small and medium-sized businesses grow with smarter digital marketing.",
   alternates: { canonical: "/about" },
 };
 
 export default function AboutPage() {
-  return <>
-    <section className="page-hero"><div className="container"><div className="breadcrumb"><Link href="/">Home</Link><span>/</span><span>About Me</span></div><div className="eyebrow">A practical partner for growth</div><h1>Helping businesses grow through smarter digital marketing.</h1><p>Clear strategy, thoughtful use of AI, and a commitment to recommendations that make sense for your business.</p></div></section>
-    <section className="section-pad"><div className="container content-grid"><ProfileVisual small /><div className="prose-block"><div className="eyebrow">Hello, I’m {siteConfig.name}</div><h2>Marketing should create clarity—not more complexity.</h2><p>{siteConfig.biography}</p><p>I believe the strongest marketing starts with a clear understanding of the business, the customer, and the decision someone needs to make. AI can then help research, create, analyze, and automate more efficiently—without replacing sound judgment.</p><div className="placeholder-note"><strong>Personal story placeholder:</strong> {siteConfig.storyPlaceholder}</div></div></div></section>
-    <section className="section-pad pale-section"><div className="container"><div className="section-heading centered"><div className="eyebrow">What guides the work</div><h2>Practical marketing, built on clear principles.</h2></div><div className="value-grid">
-      {[[Compass,"My mission","To help small and medium-sized businesses access effective AI-powered marketing strategies that make business growth more achievable."],[Handshake,"My commitment","Clear communication, honest recommendations, and a collaborative process from first conversation to next steps."],[Target,"My focus","Useful marketing objectives, relevant audiences, and systems that support consistent improvement over time."]].map(([Icon,title,copy])=><article className="value-card" key={String(title)}><Icon/><h3>{String(title)}</h3><p>{String(copy)}</p></article>)}
-    </div></div></section>
-    <section className="section-pad"><div className="container content-grid"><div className="prose-block"><div className="eyebrow">My approach</div><h2>A customized strategy, not a standard formula.</h2><p>Every engagement begins by understanding what your business is trying to achieve, how customers currently find you, and where marketing friction is holding you back.</p><div className="check-list" style={{marginTop:"2rem"}}>{["Understand individual business needs","Select suitable marketing channels","Apply practical AI tools","Prioritize measurable marketing objectives","Build a tailored, usable roadmap","Improve based on meaningful signals"].map(item=><article key={item}><span><CheckCircle2/></span><div><h3>{item}</h3></div></article>)}</div></div><div className="why-panel"><span className="mini-label">THE WORKING PHILOSOPHY</span><h2>Technology serves the strategy.</h2><p>AI can accelerate research, content workflows, analysis, and follow-up. It creates the most value when it supports a thoughtful plan and responsible human review.</p><Link className="text-link" href="/services">Explore the services <ArrowRight size={16}/></Link></div></div></section>
-    <section className="section-pad dark-section"><div className="container"><div className="section-heading"><div className="eyebrow light">Who I work with</div><h2>Built for ambitious businesses that value a clearer way forward.</h2><p>This approach is suited to business owners who want practical guidance, stronger marketing foundations, and a partner who can make modern tools easier to use.</p></div><div className="audience-list">{["Small business owners","Medium-sized businesses","Entrepreneurs","Startup founders","Local businesses","Service-based businesses","Growing teams"].map(item=><span key={item}><Building2 size={14} style={{display:"inline",marginRight:7}}/>{item}</span>)}</div></div></section>
-    <div className="container section-pad-top"><ConsultationCta/></div>
-  </>;
+  return (
+    <>
+      <section className="page-hero">
+        <div className="container">
+          <div className="breadcrumb"><Link href="/">Home</Link><span>/</span><span>About Me</span></div>
+          <div className="eyebrow">About Rohan Pathak</div>
+          <h1>Helping Business Owners Grow with Smarter Marketing</h1>
+          <p>Practical AI tools, proven Digital Marketing strategies, and solutions shaped around your business goals.</p>
+        </div>
+      </section>
+
+      <section className="section-pad">
+        <div className="container content-grid">
+          <ProfileVisual small />
+          <div className="prose-block">
+            <div className="eyebrow">Hi, I’m {siteConfig.name}</div>
+            <h2>Every business deserves a clear and effective marketing strategy.</h2>
+            <p>I’m an AI Marketing Expert passionate about helping small and medium-sized businesses grow online.</p>
+            <p>My goal is simple: to help you attract more customers, generate better leads, and grow your business using proven Digital Marketing strategies and practical AI tools.</p>
+            <p>I focus on understanding your business, identifying growth opportunities, and creating marketing solutions that make sense for your goals.</p>
+          </div>
+        </div>
+      </section>
+
+      <section className="section-pad pale-section">
+        <div className="container content-grid">
+          <div className="why-panel">
+            <span className="mini-label">MY MISSION</span>
+            <h2>Make AI-Powered Digital Marketing accessible and practical.</h2>
+            <p>To make effective AI-Powered Digital Marketing accessible, practical, and valuable for growing businesses.</p>
+          </div>
+          <div className="prose-block">
+            <div className="eyebrow">Let’s work on your business growth</div>
+            <h2>Find a strategy that works for you.</h2>
+            <p>Whether you’re struggling to attract customers or looking for better ways to market your business, let’s find a strategy that works for you.</p>
+            <Link className="button" href={siteConfig.bookingUrl}>Book a Free Consultation Call <ArrowRight size={17} /></Link>
+          </div>
+        </div>
+      </section>
+
+      <section className="section-pad dark-section">
+        <div className="container credibility-grid">
+          <div>
+            <div className="eyebrow light">A business-focused approach</div>
+            <h2>Your goals guide the strategy.</h2>
+            <p>We start by understanding your challenges, customers, and opportunities—then use the right marketing strategies and AI tools to help you move forward.</p>
+          </div>
+          <div className="deliverable-card">
+            <span className="mini-label">THE FOCUS</span>
+            <ul>
+              <li><Target /> Attract more customers</li>
+              <li><Target /> Generate better leads</li>
+              <li><Target /> Improve your online marketing</li>
+              <li><Target /> Build sustainable business growth</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <div className="container section-pad-top"><ConsultationCta /></div>
+    </>
+  );
 }

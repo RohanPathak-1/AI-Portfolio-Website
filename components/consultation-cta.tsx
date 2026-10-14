@@ -8,12 +8,12 @@ export function ConsultationCta({ compact = false }: { compact?: boolean }) {
       <div className="cta-orbit" aria-hidden="true"><span /><span /><span /></div>
       <div>
         <div className="eyebrow light"><CalendarDays size={15} /> Free strategic consultation</div>
-        <h2>Ready to take your business to the next level?</h2>
-        <p>Let’s review your business, uncover marketing opportunities, and create a customized Digital Marketing Plan you can start putting into action.</p>
+        <h2>Your Business Has Growth Potential. Let’s Unlock It.</h2>
+        <p>Discover what’s holding your marketing back and get a clear, personalized plan to attract more customers and grow your business.</p>
       </div>
       <div className="cta-action">
         <Link className="button button-light" href={siteConfig.bookingUrl}>Book a Free Consultation Call <ArrowRight size={17} /></Link>
-        <small>No pressure. Practical recommendations you can use.</small>
+        <small>Free consultation. Personalized recommendations. Clear next steps.</small>
       </div>
     </section>
   );

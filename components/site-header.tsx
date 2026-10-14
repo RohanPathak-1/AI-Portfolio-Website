@@ -31,7 +31,7 @@ export function SiteHeader() {
           ))}
         </nav>
         <Link className="button button-small header-cta" href={siteConfig.bookingUrl}>
-          Book a Free Call
+          Book a Free Consultation Call
         </Link>
         <button
           className="menu-button"

@@ -1,11 +1,52 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowRight, ClipboardCheck, Lightbulb, MessagesSquare, SearchCheck } from "lucide-react";
+import { ArrowRight, Bot, ClipboardCheck, Lightbulb, MessagesSquare, SearchCheck } from "lucide-react";
 import { ContactForm } from "@/components/contact-form";
 
-export const metadata: Metadata = {title:"Contact & Free Consultation",description:"Book a free consultation to discuss your business goals, marketing challenges, and practical AI-powered growth opportunities.",alternates:{canonical:"/contact"}};
+export const metadata: Metadata = {
+  title: "Contact & Free Consultation",
+  description: "Book a free consultation to identify marketing opportunities and receive a customized Digital Marketing Plan for your business.",
+  alternates: { canonical: "/contact" },
+};
 
-export default function ContactPage(){return <>
-  <section className="page-hero"><div className="container"><div className="breadcrumb"><Link href="/">Home</Link><span>/</span><span>Contact</span></div><div className="eyebrow">Start with a useful conversation</div><h1>Let’s talk about growing your business.</h1><p>Tell me a little about your business and the challenges you’re facing. Let’s explore how AI-powered digital marketing can help you reach your goals.</p></div></section>
-  <section className="section-pad"><div className="container contact-grid"><div><div className="booking-panel" id="book"><div className="eyebrow light">Option A · Recommended</div><h2>Book a free consultation call</h2><p>Let’s discuss your challenges, identify useful opportunities, and shape a customized Digital Marketing Plan you can begin implementing.</p><p><strong>Calendar connection required:</strong> replace the booking URL in <code>config/site.ts</code> to send visitors to your live scheduling page.</p><Link className="button button-light" href="#message">Use the inquiry form for now <ArrowRight size={16}/></Link></div><div className="contact-benefits">{[[SearchCheck,"Initial business assessment","A focused review of your current situation and priorities."],[Lightbulb,"Opportunity identification","A practical look at where marketing could work harder for you."],[MessagesSquare,"Personalized recommendations","Ideas shaped around your audience, resources, and goals."],[ClipboardCheck,"Actionable growth plan","A clear Digital Marketing Plan you can begin putting to work."]].map(([Icon,title,copy])=><article key={String(title)}><Icon size={21}/><div><h3>{String(title)}</h3><p>{String(copy)}</p></div></article>)}</div></div><div id="message"><div className="eyebrow">Option B · Send an inquiry</div><ContactForm/></div></div></section>
-</>}
+export default function ContactPage() {
+  return (
+    <>
+      <section className="page-hero">
+        <div className="container">
+          <div className="breadcrumb"><Link href="/">Home</Link><span>/</span><span>Contact</span></div>
+          <div className="eyebrow">Start with a useful conversation</div>
+          <h1>Let’s Talk About Growing Your Business</h1>
+          <p>Have questions about your marketing? Not sure why you’re struggling to attract customers or generate sales? Let’s find out what’s holding your business back.</p>
+        </div>
+      </section>
+
+      <section className="section-pad">
+        <div className="container contact-grid">
+          <div>
+            <div className="booking-panel" id="book">
+              <div className="eyebrow light">Free strategic consultation</div>
+              <h2>Book Your Free Consultation</h2>
+              <p>Let’s analyze your business, identify growth opportunities, and create a customized Digital Marketing Plan you can start implementing immediately.</p>
+              <Link className="button button-light" href="#message">Book a Free Consultation Call <ArrowRight size={16} /></Link>
+            </div>
+            <div className="contact-benefits">
+              {[
+                [MessagesSquare, "Discuss your goals", "We’ll talk through your business goals and marketing challenges."],
+                [SearchCheck, "Review your marketing", "We’ll review your existing marketing efforts."],
+                [Lightbulb, "Identify opportunities", "We’ll identify opportunities to attract more customers."],
+                [Bot, "Explore the right tools", "We’ll explore AI tools and Digital Marketing strategies suitable for your business."],
+                [ClipboardCheck, "Create your plan", "You’ll receive a customized Digital Marketing Plan you can start implementing immediately."],
+              ].map(([Icon, title, copy]) => <article key={String(title)}><Icon size={21} /><div><h3>{String(title)}</h3><p>{String(copy)}</p></div></article>)}
+            </div>
+          </div>
+          <div id="message">
+            <div className="eyebrow">Prefer to send a message?</div>
+            <p>Tell me a little about your business, and I’ll get back to you.</p>
+            <ContactForm />
+          </div>
+        </div>
+      </section>
+    </>
+  );
+}

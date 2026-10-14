@@ -10,7 +10,7 @@ export function SiteFooter() {
         <div className="footer-intro">
           <Logo />
           <p>{siteConfig.tagline}</p>
-          <p className="config-note">Contact details and social profiles are ready to configure before public launch.</p>
+          <p className="config-note">Let’s analyze your business, identify growth opportunities, and create a customized Digital Marketing Plan.</p>
         </div>
         <div>
           <h2>Explore</h2>

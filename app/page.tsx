@@ -1,33 +1,30 @@
 import Link from "next/link";
 import {
-  ArrowRight, BarChart3, Bot, Check, CircleGauge, Eye, Focus, Lightbulb,
-  Megaphone, MessageSquareText, Search, Sparkles, Target, Workflow,
+  ArrowRight, Bot, Check, CircleGauge, Clock3, Eye, Megaphone,
+  MessageSquareText, Search, Sparkles, Target, Workflow,
 } from "lucide-react";
-import { BlogCard } from "@/components/blog-card";
 import { ConsultationCta } from "@/components/consultation-cta";
 import { ProfileVisual } from "@/components/profile-visual";
 import { siteConfig } from "@/config/site";
-import { blogPosts } from "@/lib/blog";
 
 const challenges = [
-  [Target, "Not enough qualified leads", "Your marketing gets attention, but not enough conversations with the right prospects."],
-  [Eye, "Low online visibility", "Potential customers struggle to find or understand what makes your business relevant."],
-  [Megaphone, "Campaigns that underperform", "Advertising activity lacks the targeting, message, or landing-page support it needs."],
-  [CircleGauge, "Visitors do not convert", "Your online presence does not make the next step clear, useful, and easy."],
-  [Workflow, "Too much repetitive work", "Manual marketing tasks take time away from customers and business priorities."],
-  [Lightbulb, "Unclear marketing priorities", "Too many channels and tools make it difficult to know where to focus first."],
+  [Target, "Not Enough Leads", "You’re struggling to attract potential customers."],
+  [Eye, "Low Online Visibility", "People can’t easily find your business online."],
+  [Megaphone, "Poor Marketing Results", "You’re spending time and money on marketing without seeing the results you want."],
+  [CircleGauge, "Low Sales", "Visitors are finding your business but aren’t becoming paying customers."],
+  [Clock3, "Not Enough Time", "Managing marketing alongside your business takes too much effort."],
 ];
-
-const serviceIcons = [Bot, Search, MessageSquareText, Target, Sparkles, Workflow];
 
 const benefits = [
-  [Eye, "Improve visibility", "Show up more clearly where relevant customers are already looking."],
-  [Focus, "Reach the right people", "Shape messages and channel choices around the audience most likely to benefit."],
-  [Target, "Create lead opportunities", "Build clearer paths from initial interest to a useful business conversation."],
-  [CircleGauge, "Improve conversion", "Remove friction and make each next step easier to understand and take."],
-  [Workflow, "Streamline workflows", "Use practical automation to make repeatable marketing work more efficient."],
-  [BarChart3, "Make informed decisions", "Focus on useful signals and refine the plan based on what you learn."],
+  [Eye, "Reach more potential customers", "Connect with more of the people who need what your business offers."],
+  [Target, "Generate more qualified leads", "Create clearer paths that turn interest into valuable business conversations."],
+  [Search, "Improve your online presence", "Make your business easier to discover, understand, and trust online."],
+  [CircleGauge, "Turn more visitors into customers", "Improve the journey from first visit to meaningful action."],
+  [Workflow, "Save time with smarter processes", "Use practical automation to reduce repetitive marketing work."],
+  [Sparkles, "Build sustainable growth", "Follow a clear strategy designed to support long-term business growth."],
 ];
+
+const serviceIcons = [Bot, Search, MessageSquareText, Megaphone, Sparkles, Workflow];
 
 export default function HomePage() {
   return (
@@ -35,31 +32,28 @@ export default function HomePage() {
       <section className="hero section-pad">
         <div className="container hero-grid">
           <div className="hero-copy">
-            <div className="eyebrow"><Sparkles size={15} /> AI-powered strategy. Human-centered growth.</div>
-            <h1>Grow your business <span>smarter</span> with AI-powered digital marketing.</h1>
-            <p className="hero-lead">I help small and medium-sized business owners attract more customers, generate qualified leads, and improve marketing performance using practical AI tools and effective digital strategies.</p>
+            <div className="eyebrow"><Sparkles size={15} /> AI-powered digital marketing</div>
+            <h1>Grow Your Business with <span>AI-Powered</span> Digital Marketing</h1>
+            <p className="hero-lead">Struggling to attract customers, generate leads, or increase sales? I help small and medium-sized businesses grow online using proven Digital Marketing strategies and powerful AI tools.</p>
             <div className="button-row">
               <Link className="button" href={siteConfig.bookingUrl}>Book a Free Consultation Call <ArrowRight size={18} /></Link>
               <Link className="button button-secondary" href="/services">Explore My Services</Link>
             </div>
             <div className="consultation-note">
               <span><Check size={15} /></span>
-              <p><strong>Leave with a clearer path forward.</strong> We’ll discuss your goals, uncover opportunities, and shape an actionable marketing plan.</p>
+              <p>Get a customized Digital Marketing Plan for your business that you can start implementing immediately.</p>
             </div>
           </div>
           <ProfileVisual />
-        </div>
-        <div className="container signal-bar" aria-label="Areas of focus">
-          <span>Strategy first</span><span>Clear communication</span><span>Practical AI</span><span>Business outcomes</span>
         </div>
       </section>
 
       <section className="section-pad challenges-section">
         <div className="container">
           <div className="section-heading centered">
-            <div className="eyebrow">Common growth challenges</div>
-            <h2>Struggling to grow your business online?</h2>
-            <p>Marketing can feel busy without creating clear momentum. These are the problems a focused strategy is designed to solve.</p>
+            <div className="eyebrow">The challenge</div>
+            <h2>Is Your Business Struggling to Grow Online?</h2>
+            <p>Running a business is challenging. Growing it online shouldn’t have to be.</p>
           </div>
           <div className="challenge-grid">
             {challenges.map(([Icon, title, copy], index) => (
@@ -70,17 +64,17 @@ export default function HomePage() {
               </article>
             ))}
           </div>
-          <p className="bridge-copy">The answer is not simply doing more. It is choosing the right priorities, building a reliable system, and using AI where it creates genuine leverage.</p>
+          <p className="bridge-copy"><strong>The good news? You don’t have to figure everything out alone.</strong></p>
         </div>
       </section>
 
       <section className="section-pad dark-section">
         <div className="container growth-grid">
           <div className="sticky-copy">
-            <div className="eyebrow light">A more useful marketing system</div>
-            <h2>Smarter marketing.<br />Better opportunities.<br /><span>Sustainable growth.</span></h2>
-            <p>AI becomes valuable when it supports a sound strategy. Together, we focus on the decisions and workflows that can make your marketing more relevant, consistent, and easier to improve.</p>
-            <Link className="text-link light-link" href="/services">See how I can help <ArrowRight size={16} /></Link>
+            <div className="eyebrow light">The solution</div>
+            <h2>Smarter Marketing.<br />More Customers.<br /><span>Better Growth.</span></h2>
+            <p>I help business owners turn marketing challenges into growth opportunities with AI-Powered Digital Marketing.</p>
+            <Link className="text-link light-link" href={siteConfig.bookingUrl}>Let’s Grow Your Business <ArrowRight size={16} /></Link>
           </div>
           <div className="benefit-list">
             {benefits.map(([Icon, title, copy], index) => (
@@ -96,8 +90,8 @@ export default function HomePage() {
       <section className="section-pad">
         <div className="container">
           <div className="section-heading split-heading">
-            <div><div className="eyebrow">What I can help with</div><h2>AI-powered digital marketing services</h2></div>
-            <p>Six connected capabilities, shaped into the right mix for your business rather than sold as a one-size-fits-all package.</p>
+            <div><div className="eyebrow">What I can help with</div><h2>Digital Marketing Services Designed to Grow Your Business</h2></div>
+            <p>Practical, AI-powered services shaped around your goals, customers, and growth opportunities.</p>
           </div>
           <div className="service-grid">
             {siteConfig.services.map((service, index) => {
@@ -111,77 +105,39 @@ export default function HomePage() {
               );
             })}
           </div>
-          <div className="centered-action"><Link className="button button-secondary" href="/services">View all service details <ArrowRight size={17} /></Link></div>
+          <div className="centered-action"><Link className="button button-secondary" href="/services">Explore All Services <ArrowRight size={17} /></Link></div>
         </div>
       </section>
 
       <section className="section-pad pale-section">
         <div className="container why-grid">
           <div className="why-panel">
-            <span className="mini-label">WHY THIS APPROACH</span>
-            <h2>Marketing strategies built around your business.</h2>
-            <p>No two businesses have the same customers, constraints, or opportunities. Your plan should reflect that.</p>
-            <div className="strategy-map" aria-hidden="true">
-              <div className="map-core">YOUR<br />BUSINESS</div>
-              <span className="map-node node-a">Audience</span><span className="map-node node-b">Goals</span>
-              <span className="map-node node-c">Channels</span><span className="map-node node-d">Systems</span>
-            </div>
+            <span className="mini-label">WHY WORK WITH ME?</span>
+            <h2>Your Business Deserves More Than Generic Marketing Advice</h2>
+            <p>Every business is different. That’s why I focus on understanding your challenges before recommending solutions.</p>
           </div>
           <div className="check-list">
             {[
-              ["Personalized direction", "Recommendations reflect your goals, audience, resources, and stage of growth."],
-              ["Business-first recommendations", "Tools and channels are selected for a practical reason, not because they are fashionable."],
-              ["Practical use of AI", "AI supports research, content, analysis, and workflow—not empty automation for its own sake."],
-              ["Clear communication", "Complex marketing ideas are translated into concrete priorities and next steps."],
-              ["Data-informed improvement", "Useful signals guide iteration while context and judgment stay in the loop."],
-              ["Meaningful outcomes", "The focus remains on visibility, qualified conversations, and better marketing operations."],
+              ["Personalized Strategies", "Marketing plans built around your business."],
+              ["AI-Powered Solutions", "Practical tools that make marketing more efficient."],
+              ["Clear Action Plans", "Know what to do, why it matters, and where to start."],
+              ["Business-Focused Approach", "Strategies designed to attract customers, generate leads, and support sales growth."],
             ].map(([title, copy]) => <article key={title}><span><Check /></span><div><h3>{title}</h3><p>{copy}</p></div></article>)}
-          </div>
-        </div>
-      </section>
-
-      <section className="section-pad">
-        <div className="container about-preview">
-          <ProfileVisual small />
-          <div>
-            <div className="eyebrow">Meet your AI marketing partner</div>
-            <h2>A thoughtful, practical partner for your next stage of growth.</h2>
-            <p>{siteConfig.biography}</p>
-            <p>My mission is to make effective digital marketing more accessible to growing businesses—without unnecessary complexity, inflated promises, or disconnected tactics.</p>
-            <Link className="button button-secondary" href="/about">Learn More About Me <ArrowRight size={17} /></Link>
           </div>
         </div>
       </section>
 
       <section className="section-pad process-section">
         <div className="container">
-          <div className="section-heading centered"><div className="eyebrow">A clear way forward</div><h2>A simple process to start growing your business</h2></div>
+          <div className="section-heading centered"><div className="eyebrow">How it works</div><h2>Your Business Growth Starts with 3 Simple Steps</h2></div>
           <div className="process-grid">
             {[
-              ["Discover", "Understand your business, audience, goals, and most important challenges."],
-              ["Analyze", "Review your online presence, current activity, and the opportunities worth exploring."],
-              ["Strategize", "Build a tailored AI-powered digital marketing plan with clear priorities."],
-              ["Implement & Improve", "Support agreed implementation, review relevant signals, and refine the approach."],
+              ["Book a Free Consultation", "Tell me about your business, goals, and marketing challenges."],
+              ["Get Your Business Analyzed", "I’ll review your current marketing approach and identify opportunities for improvement."],
+              ["Receive Your Customized Marketing Plan", "Get a practical Digital Marketing Plan with clear steps you can start implementing immediately."],
             ].map(([title, copy], index) => <article key={title}><span className="process-number">{index + 1}</span><div><small>Step {index + 1}</small><h3>{title}</h3><p>{copy}</p></div></article>)}
           </div>
-        </div>
-      </section>
-
-      <section className="section-pad credibility-section">
-        <div className="container credibility-grid">
-          <div><div className="eyebrow">Credibility through clarity</div><h2>Know exactly what you’ll get from the first conversation.</h2><p>Until verified testimonials, case studies, or certifications are added, this site builds trust the honest way: with a transparent process and concrete deliverables.</p></div>
-          <div className="deliverable-card">
-            <span className="mini-label">YOUR FREE CONSULTATION INCLUDES</span>
-            <ul><li><Check /> Initial business and marketing assessment</li><li><Check /> Opportunity and priority identification</li><li><Check /> Practical, personalized recommendations</li><li><Check /> A customized actionable Digital Marketing Plan</li></ul>
-            <Link className="button" href={siteConfig.bookingUrl}>Plan my consultation <ArrowRight size={17} /></Link>
-          </div>
-        </div>
-      </section>
-
-      <section className="section-pad">
-        <div className="container">
-          <div className="section-heading split-heading"><div><div className="eyebrow">From the journal</div><h2>Insights on AI, marketing & business growth</h2></div><Link className="text-link" href="/blog">View all insights <ArrowRight size={15} /></Link></div>
-          <div className="blog-grid">{blogPosts.map((post) => <BlogCard post={post} key={post.slug} />)}</div>
+          <div className="centered-action"><Link className="button" href={siteConfig.bookingUrl}>Book Your Free Consultation <ArrowRight size={17} /></Link></div>
         </div>
       </section>
 
