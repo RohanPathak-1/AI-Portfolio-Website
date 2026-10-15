@@ -1,8 +1,5 @@
-import { and, count, eq, gte } from "drizzle-orm";
 import { NextResponse } from "next/server";
 import { z } from "zod";
-import { getDb } from "@/db";
-import { contactInquiries } from "@/db/schema";
 
 const schema = z.object({
   fullName: z.string().trim().min(2).max(100), businessName: z.string().trim().max(120).optional().or(z.literal("")),
@@ -12,16 +9,9 @@ const schema = z.object({
 });
 
 const copy = {
-  en: { invalid: "Please review the highlighted fields and try again.", unavailable: "Messages cannot currently be submitted. Please try again later.", rate: "Too many messages were submitted from this connection. Please try again later." },
-  ne: { invalid: "कृपया दिइएको जानकारी जाँचेर फेरि प्रयास गर्नुहोस्।", unavailable: "हाल सन्देश पठाउने सुविधा उपलब्ध छैन। कृपया पछि फेरि प्रयास गर्नुहोस्।", rate: "यस कनेक्सनबाट धेरै सन्देश पठाइएको छ। कृपया पछि फेरि प्रयास गर्नुहोस्।" },
+  en: { invalid: "Please review the highlighted fields and try again.", unavailable: "Messages cannot currently be submitted. Please try again later." },
+  ne: { invalid: "कृपया दिइएको जानकारी जाँचेर फेरि प्रयास गर्नुहोस्।", unavailable: "हाल सन्देश पठाउने सुविधा उपलब्ध छैन। कृपया पछि फेरि प्रयास गर्नुहोस्।" },
 } as const;
-
-async function fingerprint(request: Request) {
-  const ip = request.headers.get("cf-connecting-ip") ?? request.headers.get("x-forwarded-for")?.split(",")[0] ?? "unknown";
-  const agent = request.headers.get("user-agent") ?? "unknown";
-  const bytes = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(`${ip}|${agent}`));
-  return Array.from(new Uint8Array(bytes)).slice(0, 16).map((value) => value.toString(16).padStart(2, "0")).join("");
-}
 
 export async function POST(request: Request) {
   const contentLength = Number(request.headers.get("content-length") || 0);
@@ -32,18 +22,21 @@ export async function POST(request: Request) {
   const result = schema.safeParse(input);
   if (!result.success) return NextResponse.json({ code: "invalid", message: copy[locale].invalid, issues: result.error.flatten().fieldErrors }, { status: 400 });
   if (Date.now() - result.data.submittedAt < 1_500) return NextResponse.json({ code: "invalid", message: copy[locale].invalid }, { status: 400 });
+  const endpoint = process.env.CONTACT_FORM_ENDPOINT;
+  if (!endpoint) return NextResponse.json({ code: "unavailable", message: copy[locale].unavailable }, { status: 503 });
   try {
-    const db = getDb();
-    const visitor = await fingerprint(request);
-    const recent = await db.select({ value: count() }).from(contactInquiries).where(and(eq(contactInquiries.fingerprint, visitor), gte(contactInquiries.createdAt, Date.now() - 60 * 60 * 1000)));
-    if ((recent[0]?.value ?? 0) >= 5) return NextResponse.json({ code: "rate_limited", message: copy[locale].rate }, { status: 429 });
-    await db.insert(contactInquiries).values({
-      id: crypto.randomUUID(), fullName: result.data.fullName, email: result.data.email,
-      businessName: result.data.businessName || null, service: result.data.service || null, message: result.data.message,
-      locale, fingerprint: visitor, createdAt: Date.now(),
+    const upstream = await fetch(endpoint, {
+      method: "POST", headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        fullName: result.data.fullName, email: result.data.email,
+        businessName: result.data.businessName || undefined, service: result.data.service || undefined,
+        message: result.data.message, locale, source: "Rohan Pathak AI Marketing Portfolio",
+      }),
+      signal: AbortSignal.timeout(10_000),
     });
+    if (!upstream.ok) throw new Error(`Contact provider returned ${upstream.status}`);
     return NextResponse.json({ ok: true }, { status: 201 });
   } catch {
-    return NextResponse.json({ code: "unavailable", message: copy[locale].unavailable }, { status: 503 });
+    return NextResponse.json({ code: "unavailable", message: copy[locale].unavailable }, { status: 502 });
   }
 }

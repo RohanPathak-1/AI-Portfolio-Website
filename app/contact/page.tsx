@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { ArrowRight, Bot, ClipboardCheck, Lightbulb, MessagesSquare, SearchCheck } from "lucide-react";
+import type { LucideIcon } from "lucide-react";
 import { ContactForm } from "@/components/contact-form";
 import { FocusCardGroup } from "@/components/focus-card-group";
 import { T } from "@/components/language-provider";
@@ -9,6 +10,10 @@ export const metadata: Metadata = {
   description: "Book a free consultation to identify marketing opportunities and receive a customized Digital Marketing Plan for your business.",
   alternates: { canonical: "/contact" },
 };
+
+const contactBenefits: Array<[LucideIcon, number]> = [
+  [MessagesSquare, 1], [SearchCheck, 2], [Lightbulb, 3], [Bot, 4], [ClipboardCheck, 5],
+];
 
 export default function ContactPage() {
   return (
@@ -28,7 +33,7 @@ export default function ContactPage() {
               <a className="button button-light" href="/contact#message"><T id="common.book" /> <ArrowRight size={16} /></a>
             </div>
             <FocusCardGroup className="contact-benefits">
-              {[[MessagesSquare,1],[SearchCheck,2],[Lightbulb,3],[Bot,4],[ClipboardCheck,5]].map(([Icon, item]) => <article key={String(item)}><Icon size={21} /><div><h3><T id={`contact.benefit.${item}.title`} /></h3><p><T id={`contact.benefit.${item}.copy`} /></p></div></article>)}
+              {contactBenefits.map(([Icon, item]) => <article key={item}><Icon size={21} /><div><h3><T id={`contact.benefit.${item}.title`} /></h3><p><T id={`contact.benefit.${item}.copy`} /></p></div></article>)}
             </FocusCardGroup>
           </div>
           <div id="message">

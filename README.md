@@ -41,13 +41,16 @@ Replace `bookingUrl` in `config/site.ts` with the full HTTPS URL from Calendly o
 
 The form performs client-side and server-side validation, includes a spam honeypot, loading/error/success states, and never pretends a message was sent. Without a provider, it returns a clear configuration message.
 
-Set this production environment variable in Sites:
+On Vercel, configure this production environment variable:
 
 ```text
 CONTACT_FORM_ENDPOINT=https://your-secure-form-handler.example/endpoint
 ```
 
-The endpoint must accept JSON and return a successful 2xx response. It should send an email or save the lead in your approved CRM. Do not commit private API keys. If the provider needs authentication, replace the generic forwarding logic in `app/api/contact/route.ts` with the provider’s server-side SDK and store credentials as hosting secrets.
+The endpoint must accept JSON and return a successful 2xx response only after it
+has sent the email or saved the inquiry in an approved CRM or database. Do not
+commit private API keys. Without this variable, a Vercel deployment keeps the
+form in its honest unavailable state instead of showing a false success.
 
 ## Publish a blog article
 
@@ -64,5 +67,11 @@ The site includes page metadata, canonical URLs, Open Graph foundations, Person 
 5. Add only verified testimonials, credentials, clients, or case-study claims.
 
 ## Deployment
+
+Vercel uses `pnpm build`, which produces the standard `.next` output. Add
+`CONTACT_FORM_ENDPOINT` in Project Settings → Environment Variables before
+using the contact form in production.
+
+For the original ChatGPT Sites packaging pipeline, use `pnpm build:sites`.
 
 The project is configured for ChatGPT Sites in `.openai/hosting.json`. The Sites workflow builds, packages, saves, and deploys the verified source. New Sites are private by default.
