@@ -43,7 +43,7 @@ export default function HomePage() {
               <p>Get a customized Digital Marketing Plan for your business that you can start implementing immediately.</p>
             </div>
           </div>
-          <ProfileVisual />
+          <ProfileVisual variant="hero" priority />
         </div>
       </section>
 

@@ -24,7 +24,7 @@ export default function AboutPage() {
 
       <section className="section-pad">
         <div className="container content-grid">
-          <ProfileVisual small />
+          <ProfileVisual small variant="about" />
           <div className="prose-block">
             <div className="eyebrow">A clearer path to growth</div>
             <h2>Every business deserves an effective marketing strategy.</h2>
