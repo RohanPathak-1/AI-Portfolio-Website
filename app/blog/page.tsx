@@ -3,6 +3,7 @@ import { ArrowRight, Check } from "lucide-react";
 import { BlogExplorer } from "@/components/blog-explorer";
 import { ConsultationCta } from "@/components/consultation-cta";
 import { siteConfig } from "@/config/site";
+import { T } from "@/components/language-provider";
 
 export const metadata: Metadata = {
   title: "AI Marketing Tips & Business Growth Strategies",
@@ -10,36 +11,25 @@ export const metadata: Metadata = {
   alternates: { canonical: "/blog" },
 };
 
-const topics = [
-  "AI-Powered Marketing",
-  "Digital Marketing Strategies",
-  "Lead Generation",
-  "Search Engine Optimization",
-  "Social Media Growth",
-  "Marketing Automation",
-];
+const topics = [1, 2, 3, 4, 5, 6];
 
 export default function BlogPage() {
   return (
     <>
       <section className="page-hero">
         <div className="container">
-          <div className="breadcrumb"><a href="/">Home</a><span>/</span><span>Blog</span></div>
-          <div className="eyebrow">Practical ideas for smarter growth</div>
-          <h1>AI Marketing Tips & Business Growth Strategies</h1>
-          <p>Discover simple, practical advice to help you attract customers, improve your digital marketing, and grow your business using AI.</p>
+          <div className="breadcrumb"><a href="/"><T id="common.home" /></a><span>/</span><span><T id="blog.label" /></span></div>
+          <div className="eyebrow"><T id="blog.eyebrow" /></div><h1><T id="blog.title" /></h1><p><T id="blog.intro" /></p>
         </div>
       </section>
 
       <section className="section-pad">
         <div className="container content-grid" data-reveal>
           <div className="prose-block">
-            <div className="eyebrow">Explore articles about</div>
-            <h2>Marketing guidance you can put to work.</h2>
-            <p>Browse practical ideas across the areas that matter most to online visibility, lead generation, and business growth.</p>
+            <div className="eyebrow"><T id="blog.exploreAbout" /></div><h2><T id="blog.guidance" /></h2><p><T id="blog.guidanceCopy" /></p>
           </div>
           <div className="check-list">
-            {topics.map((topic) => <article key={topic}><span><Check /></span><div><h3>{topic}</h3></div></article>)}
+            {topics.map((topic) => <article key={topic}><span><Check /></span><div><h3><T id={`blog.topic.${topic}`} /></h3></div></article>)}
           </div>
         </div>
       </section>
@@ -47,8 +37,7 @@ export default function BlogPage() {
       <section className="section-pad pale-section">
         <div className="container">
           <div className="section-heading split-heading" data-reveal>
-            <div><div className="eyebrow">Explore the journal</div><h2>AI marketing insights for growing businesses.</h2></div>
-            <p>Search by topic or choose a category to find the most relevant guide.</p>
+            <div><div className="eyebrow"><T id="blog.journal" /></div><h2><T id="blog.insights" /></h2></div><p><T id="blog.searchCopy" /></p>
           </div>
           <BlogExplorer />
         </div>
@@ -57,12 +46,10 @@ export default function BlogPage() {
       <section className="section-pad">
         <div className="container credibility-grid" data-reveal>
           <div>
-            <div className="eyebrow">Personalized guidance</div>
-            <h2>Need a Strategy Built Specifically for Your Business?</h2>
-            <p>General marketing tips are helpful. A personalized strategy is even better.</p>
+            <div className="eyebrow"><T id="blog.personal" /></div><h2><T id="blog.strategy" /></h2><p><T id="blog.strategyCopy" /></p>
           </div>
           <div style={{ display: "flex", alignItems: "center" }}>
-            <a className="button" href={siteConfig.bookingUrl}>Book a Free Consultation Call <ArrowRight size={17} /></a>
+            <a className="button" href={siteConfig.bookingUrl}><T id="common.book" /> <ArrowRight size={17} /></a>
           </div>
         </div>
       </section>

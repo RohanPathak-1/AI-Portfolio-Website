@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { ArrowRight, Bot, ClipboardCheck, Lightbulb, MessagesSquare, SearchCheck } from "lucide-react";
 import { ContactForm } from "@/components/contact-form";
 import { FocusCardGroup } from "@/components/focus-card-group";
+import { T } from "@/components/language-provider";
 
 export const metadata: Metadata = {
   title: "Contact & Free Consultation",
@@ -14,10 +15,8 @@ export default function ContactPage() {
     <>
       <section className="page-hero">
         <div className="container">
-          <div className="breadcrumb"><a href="/">Home</a><span>/</span><span>Contact</span></div>
-          <div className="eyebrow">Start with a useful conversation</div>
-          <h1>Let’s Talk About Growing Your Business</h1>
-          <p>Have questions about your marketing? Not sure why you’re struggling to attract customers or generate sales? Let’s find out what’s holding your business back.</p>
+          <div className="breadcrumb"><a href="/"><T id="common.home" /></a><span>/</span><span><T id="contact.label" /></span></div>
+          <div className="eyebrow"><T id="contact.eyebrow" /></div><h1><T id="contact.title" /></h1><p><T id="contact.intro" /></p>
         </div>
       </section>
 
@@ -25,24 +24,15 @@ export default function ContactPage() {
         <div className="container contact-grid" data-reveal>
           <div>
             <div className="booking-panel" id="book">
-              <div className="eyebrow light">Free strategic consultation</div>
-              <h2>Book Your Free Consultation</h2>
-              <p>Let’s analyze your business, identify growth opportunities, and create a customized Digital Marketing Plan you can start implementing immediately.</p>
-              <a className="button button-light" href="/contact#message">Book a Free Consultation Call <ArrowRight size={16} /></a>
+              <div className="eyebrow light"><T id="common.freeConsultation" /></div><h2><T id="contact.book" /></h2><p><T id="contact.bookCopy" /></p>
+              <a className="button button-light" href="/contact#message"><T id="common.book" /> <ArrowRight size={16} /></a>
             </div>
             <FocusCardGroup className="contact-benefits">
-              {[
-                [MessagesSquare, "Discuss your goals", "We’ll talk through your business goals and marketing challenges."],
-                [SearchCheck, "Review your marketing", "We’ll review your existing marketing efforts."],
-                [Lightbulb, "Identify opportunities", "We’ll identify opportunities to attract more customers."],
-                [Bot, "Explore the right tools", "We’ll explore AI tools and Digital Marketing strategies suitable for your business."],
-                [ClipboardCheck, "Create your plan", "You’ll receive a customized Digital Marketing Plan you can start implementing immediately."],
-              ].map(([Icon, title, copy]) => <article key={String(title)}><Icon size={21} /><div><h3>{String(title)}</h3><p>{String(copy)}</p></div></article>)}
+              {[[MessagesSquare,1],[SearchCheck,2],[Lightbulb,3],[Bot,4],[ClipboardCheck,5]].map(([Icon, item]) => <article key={String(item)}><Icon size={21} /><div><h3><T id={`contact.benefit.${item}.title`} /></h3><p><T id={`contact.benefit.${item}.copy`} /></p></div></article>)}
             </FocusCardGroup>
           </div>
           <div id="message">
-            <div className="eyebrow">Prefer to send a message?</div>
-            <p>Tell me a little about your business, and I’ll get back to you.</p>
+            <div className="eyebrow"><T id="contact.prefer" /></div><p><T id="contact.preferCopy" /></p>
             <ContactForm />
           </div>
         </div>

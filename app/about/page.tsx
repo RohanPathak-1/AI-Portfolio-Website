@@ -4,6 +4,7 @@ import { ConsultationCta } from "@/components/consultation-cta";
 import { FocusCardGroup } from "@/components/focus-card-group";
 import { ProfileVisual } from "@/components/profile-visual";
 import { siteConfig } from "@/config/site";
+import { T } from "@/components/language-provider";
 
 export const metadata: Metadata = {
   title: "About Me",
@@ -16,10 +17,8 @@ export default function AboutPage() {
     <>
       <section className="page-hero">
         <div className="container">
-          <div className="breadcrumb"><a href="/">Home</a><span>/</span><span>About Me</span></div>
-          <div className="eyebrow">About Rohan Pathak</div>
-          <h1>Helping Business Owners Grow with Smarter Marketing</h1>
-          <p>Hi, I’m Rohan Pathak, an AI Marketing Expert passionate about helping small and medium-sized businesses grow online.</p>
+          <div className="breadcrumb"><a href="/"><T id="common.home" /></a><span>/</span><span><T id="about.label" /></span></div>
+          <div className="eyebrow"><T id="about.eyebrow" /></div><h1><T id="about.title" /></h1><p><T id="about.intro" /></p>
         </div>
       </section>
 
@@ -27,11 +26,7 @@ export default function AboutPage() {
         <div className="container content-grid">
           <ProfileVisual small variant="about" motion="about" />
           <div className="prose-block" data-reveal>
-            <div className="eyebrow">A clearer path to growth</div>
-            <h2>Every business deserves an effective marketing strategy.</h2>
-            <p>I believe every business deserves a clear and effective marketing strategy, regardless of its size.</p>
-            <p>My goal is simple: to help you attract more customers, generate better leads, and grow your business using proven Digital Marketing strategies and practical AI tools.</p>
-            <p>I focus on understanding your business, identifying growth opportunities, and creating marketing solutions that make sense for your goals.</p>
+            <div className="eyebrow"><T id="about.path" /></div><h2><T id="about.strategy" /></h2><p><T id="about.p1" /></p><p><T id="about.p2" /></p><p><T id="about.p3" /></p>
           </div>
         </div>
       </section>
@@ -39,24 +34,20 @@ export default function AboutPage() {
       <section className="section-pad pale-section">
         <div className="container">
           <div className="section-heading centered" data-reveal>
-            <div className="eyebrow">What guides the work</div>
-            <h2>Practical marketing built around your business.</h2>
+            <div className="eyebrow"><T id="about.guides" /></div><h2><T id="about.practical" /></h2>
           </div>
           <FocusCardGroup className="value-grid" reveal>
             <article className="value-card">
               <CheckCircle2 />
-              <h3>My Mission</h3>
-              <p>To make effective AI-Powered Digital Marketing accessible, practical, and valuable for growing businesses.</p>
+              <h3><T id="about.mission" /></h3><p><T id="about.missionCopy" /></p>
             </article>
             <article className="value-card">
               <CheckCircle2 />
-              <h3>My Approach</h3>
-              <p>I start by understanding your goals, customers, and current marketing, then create a clear plan using the strategies and AI tools that fit your business.</p>
+              <h3><T id="about.approach" /></h3><p><T id="about.approachCopy" /></p>
             </article>
             <article className="value-card">
               <CheckCircle2 />
-              <h3>My Focus</h3>
-              <p>Attract more customers, generate stronger leads, improve marketing efficiency, and support sustainable business growth.</p>
+              <h3><T id="about.focus" /></h3><p><T id="about.focusCopy" /></p>
             </article>
           </FocusCardGroup>
         </div>
@@ -65,13 +56,11 @@ export default function AboutPage() {
       <section className="section-pad dark-section">
         <div className="container">
           <div className="section-heading" data-reveal>
-            <div className="eyebrow light">Who I help</div>
-            <h2>Smarter marketing for ambitious growing businesses.</h2>
-            <p>I work with business owners who want practical guidance, stronger marketing foundations, and a clear plan for reaching more customers.</p>
+            <div className="eyebrow light"><T id="about.who" /></div><h2><T id="about.whoTitle" /></h2><p><T id="about.whoCopy" /></p>
           </div>
           <div className="audience-list">
-            {["Small business owners", "Medium-sized businesses", "Entrepreneurs", "Startup founders", "Local businesses", "Service-based businesses", "Growing teams"].map((item) => (
-              <span key={item}><Building2 size={14} style={{ display: "inline", marginRight: 7 }} />{item}</span>
+            {[1,2,3,4,5,6,7].map((item) => (
+              <span key={item}><Building2 size={14} style={{ display: "inline", marginRight: 7 }} /><T id={`about.audience.${item}`} /></span>
             ))}
           </div>
         </div>
@@ -80,12 +69,10 @@ export default function AboutPage() {
       <section className="section-pad">
         <div className="container credibility-grid" data-reveal>
           <div>
-            <div className="eyebrow">Let’s work on your business growth</div>
-            <h2>Find a strategy that works for you.</h2>
-            <p>Whether you’re struggling to attract customers or looking for better ways to market your business, let’s find a strategy that works for you.</p>
+            <div className="eyebrow"><T id="about.work" /></div><h2><T id="about.find" /></h2><p><T id="about.findCopy" /></p>
           </div>
           <div style={{ display: "flex", alignItems: "center" }}>
-            <a className="button" href={siteConfig.bookingUrl}>Book a Free Consultation Call <ArrowRight size={17} /></a>
+            <a className="button" href={siteConfig.bookingUrl}><T id="common.book" /> <ArrowRight size={17} /></a>
           </div>
         </div>
       </section>

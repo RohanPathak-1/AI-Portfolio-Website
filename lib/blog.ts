@@ -181,8 +181,8 @@ export function getBlogPost(slug: string) {
   return blogPosts.find((post) => post.slug === slug);
 }
 
-export function formatDate(date: string) {
-  return new Intl.DateTimeFormat("en", {
+export function formatDate(date: string, locale: "en" | "ne" = "en") {
+  return new Intl.DateTimeFormat(locale === "ne" ? "ne-NP" : "en", {
     year: "numeric",
     month: "long",
     day: "numeric",
