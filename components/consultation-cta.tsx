@@ -3,7 +3,7 @@ import { siteConfig } from "@/config/site";
 
 export function ConsultationCta({ compact = false }: { compact?: boolean }) {
   return (
-    <section className={`consultation-cta ${compact ? "compact" : ""}`}>
+    <section className={`consultation-cta ${compact ? "compact" : ""}`} data-reveal>
       <div className="cta-orbit" aria-hidden="true"><span /><span /><span /></div>
       <div>
         <div className="eyebrow light"><CalendarDays size={15} /> Free strategic consultation</div>

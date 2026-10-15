@@ -5,6 +5,7 @@ type ProfileVisualProps = {
   small?: boolean;
   variant: "hero" | "about";
   priority?: boolean;
+  motion?: "hero" | "about";
 };
 
 const profilePhotos = {
@@ -18,11 +19,15 @@ const profilePhotos = {
   },
 } as const;
 
-export function ProfileVisual({ small = false, variant, priority = false }: ProfileVisualProps) {
+export function ProfileVisual({ small = false, variant, priority = false, motion }: ProfileVisualProps) {
   const photo = profilePhotos[variant];
 
   return (
-    <div className={`profile-visual ${small ? "small" : ""}`}>
+    <div
+      className={`profile-visual ${small ? "small" : ""}`}
+      data-hero-photo={motion === "hero" ? "" : undefined}
+      data-photo-reveal={motion === "about" ? "left" : undefined}
+    >
       <Image
         className={`profile-photo profile-photo-${variant}`}
         src={photo.src}

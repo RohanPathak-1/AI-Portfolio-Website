@@ -3,7 +3,7 @@ import { BlogPost, formatDate } from "@/lib/blog";
 
 export function BlogCard({ post, featured = false }: { post: BlogPost; featured?: boolean }) {
   return (
-    <article className={`blog-card ${featured ? "featured" : ""}`}>
+    <article className={`blog-card ${featured ? "featured" : ""}`} data-reveal>
       <a href={`/blog/${post.slug}`} className={`blog-visual visual-${post.visual}`} aria-label={`Read ${post.title}`}>
         <span className="visual-lines" aria-hidden="true" />
         <span className="visual-kicker">{post.category}</span>

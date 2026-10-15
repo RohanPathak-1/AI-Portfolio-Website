@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { ArrowRight, Bot, ClipboardCheck, Lightbulb, MessagesSquare, SearchCheck } from "lucide-react";
 import { ContactForm } from "@/components/contact-form";
+import { FocusCardGroup } from "@/components/focus-card-group";
 
 export const metadata: Metadata = {
   title: "Contact & Free Consultation",
@@ -21,7 +22,7 @@ export default function ContactPage() {
       </section>
 
       <section className="section-pad">
-        <div className="container contact-grid">
+        <div className="container contact-grid" data-reveal>
           <div>
             <div className="booking-panel" id="book">
               <div className="eyebrow light">Free strategic consultation</div>
@@ -29,7 +30,7 @@ export default function ContactPage() {
               <p>Let’s analyze your business, identify growth opportunities, and create a customized Digital Marketing Plan you can start implementing immediately.</p>
               <a className="button button-light" href="/contact#message">Book a Free Consultation Call <ArrowRight size={16} /></a>
             </div>
-            <div className="contact-benefits">
+            <FocusCardGroup className="contact-benefits">
               {[
                 [MessagesSquare, "Discuss your goals", "We’ll talk through your business goals and marketing challenges."],
                 [SearchCheck, "Review your marketing", "We’ll review your existing marketing efforts."],
@@ -37,7 +38,7 @@ export default function ContactPage() {
                 [Bot, "Explore the right tools", "We’ll explore AI tools and Digital Marketing strategies suitable for your business."],
                 [ClipboardCheck, "Create your plan", "You’ll receive a customized Digital Marketing Plan you can start implementing immediately."],
               ].map(([Icon, title, copy]) => <article key={String(title)}><Icon size={21} /><div><h3>{String(title)}</h3><p>{String(copy)}</p></div></article>)}
-            </div>
+            </FocusCardGroup>
           </div>
           <div id="message">
             <div className="eyebrow">Prefer to send a message?</div>

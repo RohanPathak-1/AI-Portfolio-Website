@@ -32,7 +32,7 @@ export default function BlogPage() {
       </section>
 
       <section className="section-pad">
-        <div className="container content-grid">
+        <div className="container content-grid" data-reveal>
           <div className="prose-block">
             <div className="eyebrow">Explore articles about</div>
             <h2>Marketing guidance you can put to work.</h2>
@@ -46,7 +46,7 @@ export default function BlogPage() {
 
       <section className="section-pad pale-section">
         <div className="container">
-          <div className="section-heading split-heading">
+          <div className="section-heading split-heading" data-reveal>
             <div><div className="eyebrow">Explore the journal</div><h2>AI marketing insights for growing businesses.</h2></div>
             <p>Search by topic or choose a category to find the most relevant guide.</p>
           </div>
@@ -55,7 +55,7 @@ export default function BlogPage() {
       </section>
 
       <section className="section-pad">
-        <div className="container credibility-grid">
+        <div className="container credibility-grid" data-reveal>
           <div>
             <div className="eyebrow">Personalized guidance</div>
             <h2>Need a Strategy Built Specifically for Your Business?</h2>

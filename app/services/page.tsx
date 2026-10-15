@@ -32,7 +32,7 @@ export default function ServicesPage() {
 
       <section className="section-pad">
         <div className="container">
-          <div className="section-heading centered">
+          <div className="section-heading centered" data-reveal>
             <div className="eyebrow">The right strategy</div>
             <h2>The Right Marketing Strategy Can Make a Big Difference</h2>
             <p>You don’t need to try every marketing tool or advertise everywhere. You need the right strategy to reach the right customers.</p>
@@ -42,12 +42,12 @@ export default function ServicesPage() {
 
       <section className="services-page">
         <div className="container">
-          <div className="section-heading"><div className="eyebrow">What I can help you with</div></div>
+          <div className="section-heading" data-reveal><div className="eyebrow">What I can help you with</div></div>
           {siteConfig.services.map((service, index) => {
             const detail = serviceDetails[index];
             const Icon = detail.icon;
             return (
-              <article className="service-detail" id={service.slug} key={service.slug}>
+              <article className="service-detail" id={service.slug} key={service.slug} data-reveal>
                 <div className="service-index"><span>0{index + 1} / 06</span><div className="service-icon"><Icon /></div></div>
                 <div className="service-body">
                   <h2>{service.title}</h2>
@@ -62,7 +62,7 @@ export default function ServicesPage() {
       </section>
 
       <section className="section-pad pale-section">
-        <div className="container credibility-grid">
+        <div className="container credibility-grid" data-reveal>
           <div>
             <div className="eyebrow">Not sure where to start?</div>
             <h2>Not Sure Which Service Your Business Needs?</h2>

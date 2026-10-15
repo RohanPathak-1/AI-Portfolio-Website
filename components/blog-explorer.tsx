@@ -15,7 +15,7 @@ export function BlogExplorer() {
   }), [category, query]);
 
   return (
-    <div className="blog-explorer">
+    <div className="blog-explorer" data-reveal>
       <div className="blog-tools">
         <div className="category-list" aria-label="Filter articles by category">
           {blogCategories.map((item) => (

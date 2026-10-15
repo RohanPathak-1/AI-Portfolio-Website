@@ -14,6 +14,15 @@ const eslintConfig = defineConfig([
     "next-env.d.ts",
   ]),
   {
+    rules: {
+      // Critical navigation intentionally uses document links so every route
+      // remains usable even when client-side hydration is delayed or disabled.
+      "@next/next/no-html-link-for-pages": "off",
+      // The compact brand mark is a fixed local asset inside a reserved box.
+      "@next/next/no-img-element": "off",
+    },
+  },
+  {
     files: ["components/ui/**/*.{ts,tsx}", "hooks/use-mobile.ts"],
     rules: {
       // These files are vendored verbatim from shadcn@4.17.0. Keep the

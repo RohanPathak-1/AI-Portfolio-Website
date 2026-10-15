@@ -3,6 +3,7 @@ import {
   MessageSquareText, Search, Sparkles, Target, Workflow,
 } from "lucide-react";
 import { ConsultationCta } from "@/components/consultation-cta";
+import { FocusCardGroup } from "@/components/focus-card-group";
 import { ProfileVisual } from "@/components/profile-visual";
 import { siteConfig } from "@/config/site";
 
@@ -30,7 +31,7 @@ export default function HomePage() {
     <>
       <section className="hero section-pad">
         <div className="container hero-grid">
-          <div className="hero-copy">
+          <div className="hero-copy" data-hero-copy>
             <div className="eyebrow"><Sparkles size={15} /> AI-powered digital marketing</div>
             <h1>Grow Your Business with <span>AI-Powered</span> Digital Marketing</h1>
             <p className="hero-lead">Struggling to attract customers, generate leads, or increase sales? I help small and medium-sized businesses grow online using proven Digital Marketing strategies and powerful AI tools.</p>
@@ -43,18 +44,18 @@ export default function HomePage() {
               <p>Get a customized Digital Marketing Plan for your business that you can start implementing immediately.</p>
             </div>
           </div>
-          <ProfileVisual variant="hero" priority />
+          <ProfileVisual variant="hero" priority motion="hero" />
         </div>
       </section>
 
       <section className="section-pad challenges-section">
         <div className="container">
-          <div className="section-heading centered">
+          <div className="section-heading centered" data-reveal>
             <div className="eyebrow">The challenge</div>
             <h2>Is Your Business Struggling to Grow Online?</h2>
             <p>Running a business is challenging. Growing it online shouldn’t have to be.</p>
           </div>
-          <div className="challenge-grid">
+          <FocusCardGroup className="challenge-grid" reveal>
             {challenges.map(([Icon, title, copy], index) => (
               <article className="challenge-card" key={String(title)}>
                 <span className="card-number">0{index + 1}</span>
@@ -62,37 +63,37 @@ export default function HomePage() {
                 <h3>{String(title)}</h3><p>{String(copy)}</p>
               </article>
             ))}
-          </div>
+          </FocusCardGroup>
           <p className="bridge-copy"><strong>The good news? You don’t have to figure everything out alone.</strong></p>
         </div>
       </section>
 
       <section className="section-pad dark-section">
-        <div className="container growth-grid">
+        <div className="container growth-grid" data-reveal>
           <div className="sticky-copy">
             <div className="eyebrow light">The solution</div>
             <h2>Smarter Marketing.<br />More Customers.<br /><span>Better Growth.</span></h2>
             <p>I help business owners turn marketing challenges into growth opportunities with AI-Powered Digital Marketing.</p>
             <a className="text-link light-link" href={siteConfig.bookingUrl}>Let’s Grow Your Business <ArrowRight size={16} /></a>
           </div>
-          <div className="benefit-list">
+          <FocusCardGroup className="benefit-list">
             {benefits.map(([Icon, title, copy], index) => (
               <article className="benefit-row" key={String(title)}>
                 <span className="benefit-index">0{index + 1}</span><Icon />
                 <div><h3>{String(title)}</h3><p>{String(copy)}</p></div>
               </article>
             ))}
-          </div>
+          </FocusCardGroup>
         </div>
       </section>
 
       <section className="section-pad">
         <div className="container">
-          <div className="section-heading split-heading">
+          <div className="section-heading split-heading" data-reveal>
             <div><div className="eyebrow">What I can help with</div><h2>Digital Marketing Services Designed to Grow Your Business</h2></div>
             <p>Practical, AI-powered services shaped around your goals, customers, and growth opportunities.</p>
           </div>
-          <div className="service-grid">
+          <FocusCardGroup className="service-grid" selectable={false} reveal>
             {siteConfig.services.map((service, index) => {
               const Icon = serviceIcons[index];
               return (
@@ -103,13 +104,13 @@ export default function HomePage() {
                 </article>
               );
             })}
-          </div>
+          </FocusCardGroup>
           <div className="centered-action"><a className="button button-secondary" href="/services">Explore All Services <ArrowRight size={17} /></a></div>
         </div>
       </section>
 
       <section className="section-pad pale-section">
-        <div className="container why-grid">
+        <div className="container why-grid" data-reveal>
           <div className="why-panel">
             <span className="mini-label">WHY WORK WITH ME?</span>
             <h2>Your Business Deserves More Than Generic Marketing Advice</h2>
@@ -128,14 +129,14 @@ export default function HomePage() {
 
       <section className="section-pad process-section">
         <div className="container">
-          <div className="section-heading centered"><div className="eyebrow">How it works</div><h2>Your Business Growth Starts with 3 Simple Steps</h2></div>
-          <div className="process-grid">
+          <div className="section-heading centered" data-reveal><div className="eyebrow">How it works</div><h2>Your Business Growth Starts with 3 Simple Steps</h2></div>
+          <FocusCardGroup className="process-grid" reveal>
             {[
               ["Book a Free Consultation", "Tell me about your business, goals, and marketing challenges."],
               ["Get Your Business Analyzed", "I’ll review your current marketing approach and identify opportunities for improvement."],
               ["Receive Your Customized Marketing Plan", "Get a practical Digital Marketing Plan with clear steps you can start implementing immediately."],
             ].map(([title, copy], index) => <article key={title}><span className="process-number">{index + 1}</span><div><small>Step {index + 1}</small><h3>{title}</h3><p>{copy}</p></div></article>)}
-          </div>
+          </FocusCardGroup>
           <div className="centered-action"><a className="button" href={siteConfig.bookingUrl}>Book Your Free Consultation <ArrowRight size={17} /></a></div>
         </div>
       </section>

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { ArrowRight, Building2, CheckCircle2 } from "lucide-react";
 import { ConsultationCta } from "@/components/consultation-cta";
+import { FocusCardGroup } from "@/components/focus-card-group";
 import { ProfileVisual } from "@/components/profile-visual";
 import { siteConfig } from "@/config/site";
 
@@ -24,8 +25,8 @@ export default function AboutPage() {
 
       <section className="section-pad">
         <div className="container content-grid">
-          <ProfileVisual small variant="about" />
-          <div className="prose-block">
+          <ProfileVisual small variant="about" motion="about" />
+          <div className="prose-block" data-reveal>
             <div className="eyebrow">A clearer path to growth</div>
             <h2>Every business deserves an effective marketing strategy.</h2>
             <p>I believe every business deserves a clear and effective marketing strategy, regardless of its size.</p>
@@ -37,11 +38,11 @@ export default function AboutPage() {
 
       <section className="section-pad pale-section">
         <div className="container">
-          <div className="section-heading centered">
+          <div className="section-heading centered" data-reveal>
             <div className="eyebrow">What guides the work</div>
             <h2>Practical marketing built around your business.</h2>
           </div>
-          <div className="value-grid">
+          <FocusCardGroup className="value-grid" reveal>
             <article className="value-card">
               <CheckCircle2 />
               <h3>My Mission</h3>
@@ -57,13 +58,13 @@ export default function AboutPage() {
               <h3>My Focus</h3>
               <p>Attract more customers, generate stronger leads, improve marketing efficiency, and support sustainable business growth.</p>
             </article>
-          </div>
+          </FocusCardGroup>
         </div>
       </section>
 
       <section className="section-pad dark-section">
         <div className="container">
-          <div className="section-heading">
+          <div className="section-heading" data-reveal>
             <div className="eyebrow light">Who I help</div>
             <h2>Smarter marketing for ambitious growing businesses.</h2>
             <p>I work with business owners who want practical guidance, stronger marketing foundations, and a clear plan for reaching more customers.</p>
@@ -77,7 +78,7 @@ export default function AboutPage() {
       </section>
 
       <section className="section-pad">
-        <div className="container credibility-grid">
+        <div className="container credibility-grid" data-reveal>
           <div>
             <div className="eyebrow">Let’s work on your business growth</div>
             <h2>Find a strategy that works for you.</h2>
