@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { siteConfig } from "@/config/site";
 import { Logo } from "./logo";
@@ -14,28 +13,28 @@ export function SiteFooter() {
         </div>
         <div>
           <h2>Explore</h2>
-          <Link href="/about">About Me</Link>
-          <Link href="/services">Services</Link>
-          <Link href="/blog">Insights</Link>
-          <Link href="/contact">Contact</Link>
+          <a href="/about">About Me</a>
+          <a href="/services">Services</a>
+          <a href="/blog">Insights</a>
+          <a href="/contact">Contact</a>
         </div>
         <div>
           <h2>Services</h2>
           {siteConfig.services.slice(0, 4).map((service) => (
-            <Link href={`/services#${service.slug}`} key={service.slug}>{service.title}</Link>
+            <a href={`/services#${service.slug}`} key={service.slug}>{service.title}</a>
           ))}
         </div>
         <div>
           <h2>Start a conversation</h2>
           <p>Let’s review your goals and find the most useful next step.</p>
-          <Link className="footer-action" href={siteConfig.bookingUrl}>
+          <a className="footer-action" href={siteConfig.bookingUrl}>
             Book a free call <ArrowUpRight size={16} />
-          </Link>
+          </a>
         </div>
       </div>
       <div className="container footer-bottom">
         <p>© {new Date().getFullYear()} {siteConfig.name}. All rights reserved.</p>
-        <div><Link href="/privacy">Privacy Policy</Link><Link href="/terms">Terms of Use</Link></div>
+        <div><a href="/privacy">Privacy Policy</a><a href="/terms">Terms of Use</a></div>
       </div>
     </footer>
   );

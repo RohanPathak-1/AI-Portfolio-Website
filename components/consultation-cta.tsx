@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { ArrowRight, CalendarDays } from "lucide-react";
 import { siteConfig } from "@/config/site";
 
@@ -12,7 +11,7 @@ export function ConsultationCta({ compact = false }: { compact?: boolean }) {
         <p>Discover what’s holding your marketing back and get a clear, personalized plan to attract more customers and grow your business.</p>
       </div>
       <div className="cta-action">
-        <Link className="button button-light" href={siteConfig.bookingUrl}>Book a Free Consultation Call <ArrowRight size={17} /></Link>
+        <a className="button button-light" href={siteConfig.bookingUrl}>Book a Free Consultation Call <ArrowRight size={17} /></a>
         <small>Free consultation. Personalized recommendations. Clear next steps.</small>
       </div>
     </section>

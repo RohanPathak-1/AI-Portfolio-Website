@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { ArrowRight, Bot, CheckCircle2, Megaphone, MessageSquareText, Search, Sparkles, Workflow } from "lucide-react";
 import { ConsultationCta } from "@/components/consultation-cta";
 import { siteConfig } from "@/config/site";
@@ -24,7 +23,7 @@ export default function ServicesPage() {
     <>
       <section className="page-hero">
         <div className="container">
-          <div className="breadcrumb"><Link href="/">Home</Link><span>/</span><span>Services</span></div>
+          <div className="breadcrumb"><a href="/">Home</a><span>/</span><span>Services</span></div>
           <div className="eyebrow">Practical solutions for growing businesses</div>
           <h1>AI-Powered Digital Marketing Services</h1>
           <p>I help small and medium-sized businesses improve their online marketing through practical, AI-powered solutions.</p>
@@ -54,7 +53,7 @@ export default function ServicesPage() {
                   <h2>{service.title}</h2>
                   <p>{detail.copy}</p>
                   <div className="outcome-box"><CheckCircle2 size={19} /><span><strong>How it helps:</strong> {service.outcome}</span></div>
-                  <Link className="text-link" style={{ marginTop: "1.5rem" }} href={siteConfig.bookingUrl}>Discuss this service <ArrowRight size={16} /></Link>
+                  <a className="text-link" style={{ marginTop: "1.5rem" }} href={siteConfig.bookingUrl}>Discuss this service <ArrowRight size={16} /></a>
                 </div>
               </article>
             );
@@ -71,7 +70,7 @@ export default function ServicesPage() {
             <p>I’ll help you identify your marketing challenges, explore growth opportunities, and create a customized plan based on your business needs.</p>
           </div>
           <div style={{ display: "flex", alignItems: "center" }}>
-            <Link className="button" href={siteConfig.bookingUrl}>Get My Free Digital Marketing Plan <ArrowRight size={17} /></Link>
+            <a className="button" href={siteConfig.bookingUrl}>Book a Free Consultation Call <ArrowRight size={17} /></a>
           </div>
         </div>
       </section>

@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { ArrowRight, Check } from "lucide-react";
 import { BlogExplorer } from "@/components/blog-explorer";
 import { ConsultationCta } from "@/components/consultation-cta";
@@ -25,7 +24,7 @@ export default function BlogPage() {
     <>
       <section className="page-hero">
         <div className="container">
-          <div className="breadcrumb"><Link href="/">Home</Link><span>/</span><span>Blog</span></div>
+          <div className="breadcrumb"><a href="/">Home</a><span>/</span><span>Blog</span></div>
           <div className="eyebrow">Practical ideas for smarter growth</div>
           <h1>AI Marketing Tips & Business Growth Strategies</h1>
           <p>Discover simple, practical advice to help you attract customers, improve your digital marketing, and grow your business using AI.</p>
@@ -63,7 +62,7 @@ export default function BlogPage() {
             <p>General marketing tips are helpful. A personalized strategy is even better.</p>
           </div>
           <div style={{ display: "flex", alignItems: "center" }}>
-            <Link className="button" href={siteConfig.bookingUrl}>Book a Free Consultation Call <ArrowRight size={17} /></Link>
+            <a className="button" href={siteConfig.bookingUrl}>Book a Free Consultation Call <ArrowRight size={17} /></a>
           </div>
         </div>
       </section>

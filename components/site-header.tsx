@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
 import { useState } from "react";
@@ -25,14 +24,14 @@ export function SiteHeader() {
         <Logo />
         <nav className="desktop-nav" aria-label="Primary navigation">
           {navigation.map((item) => (
-            <Link className={pathname === item.href ? "active" : ""} href={item.href} key={item.href} onClick={() => setOpen(false)}>
+            <a className={pathname === item.href ? "active" : ""} href={item.href} key={item.href} onClick={() => setOpen(false)}>
               {item.label}
-            </Link>
+            </a>
           ))}
         </nav>
-        <Link className="button button-small header-cta" href={siteConfig.bookingUrl}>
+        <a className="button button-small header-cta" href={siteConfig.bookingUrl}>
           Book a Free Consultation Call
-        </Link>
+        </a>
         <button
           className="menu-button"
           type="button"
@@ -47,11 +46,11 @@ export function SiteHeader() {
       <div className={`mobile-menu ${open ? "is-open" : ""}`} id="mobile-menu">
         <nav className="container" aria-label="Mobile navigation">
           {navigation.map((item) => (
-            <Link className={pathname === item.href ? "active" : ""} href={item.href} key={item.href} onClick={() => setOpen(false)}>
+            <a className={pathname === item.href ? "active" : ""} href={item.href} key={item.href} onClick={() => setOpen(false)}>
               {item.label}
-            </Link>
+            </a>
           ))}
-          <Link className="button" href={siteConfig.bookingUrl} onClick={() => setOpen(false)}>Book a Free Consultation Call</Link>
+          <a className="button" href={siteConfig.bookingUrl} onClick={() => setOpen(false)}>Book a Free Consultation Call</a>
         </nav>
       </div>
     </header>

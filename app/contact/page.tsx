@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { ArrowRight, Bot, ClipboardCheck, Lightbulb, MessagesSquare, SearchCheck } from "lucide-react";
 import { ContactForm } from "@/components/contact-form";
 
@@ -14,7 +13,7 @@ export default function ContactPage() {
     <>
       <section className="page-hero">
         <div className="container">
-          <div className="breadcrumb"><Link href="/">Home</Link><span>/</span><span>Contact</span></div>
+          <div className="breadcrumb"><a href="/">Home</a><span>/</span><span>Contact</span></div>
           <div className="eyebrow">Start with a useful conversation</div>
           <h1>Let’s Talk About Growing Your Business</h1>
           <p>Have questions about your marketing? Not sure why you’re struggling to attract customers or generate sales? Let’s find out what’s holding your business back.</p>
@@ -28,7 +27,7 @@ export default function ContactPage() {
               <div className="eyebrow light">Free strategic consultation</div>
               <h2>Book Your Free Consultation</h2>
               <p>Let’s analyze your business, identify growth opportunities, and create a customized Digital Marketing Plan you can start implementing immediately.</p>
-              <Link className="button button-light" href="#message">Book a Free Consultation Call <ArrowRight size={16} /></Link>
+              <a className="button button-light" href="/contact#message">Book a Free Consultation Call <ArrowRight size={16} /></a>
             </div>
             <div className="contact-benefits">
               {[

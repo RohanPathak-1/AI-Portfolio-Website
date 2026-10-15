@@ -1,4 +1,3 @@
-import Link from "next/link";
 import {
   ArrowRight, Bot, Check, CircleGauge, Clock3, Eye, Megaphone,
   MessageSquareText, Search, Sparkles, Target, Workflow,
@@ -36,8 +35,8 @@ export default function HomePage() {
             <h1>Grow Your Business with <span>AI-Powered</span> Digital Marketing</h1>
             <p className="hero-lead">Struggling to attract customers, generate leads, or increase sales? I help small and medium-sized businesses grow online using proven Digital Marketing strategies and powerful AI tools.</p>
             <div className="button-row">
-              <Link className="button" href={siteConfig.bookingUrl}>Book a Free Consultation Call <ArrowRight size={18} /></Link>
-              <Link className="button button-secondary" href="/services">Explore My Services</Link>
+              <a className="button" href={siteConfig.bookingUrl}>Book a Free Consultation Call <ArrowRight size={18} /></a>
+              <a className="button button-secondary" href="/services">Explore My Services</a>
             </div>
             <div className="consultation-note">
               <span><Check size={15} /></span>
@@ -74,7 +73,7 @@ export default function HomePage() {
             <div className="eyebrow light">The solution</div>
             <h2>Smarter Marketing.<br />More Customers.<br /><span>Better Growth.</span></h2>
             <p>I help business owners turn marketing challenges into growth opportunities with AI-Powered Digital Marketing.</p>
-            <Link className="text-link light-link" href={siteConfig.bookingUrl}>Let’s Grow Your Business <ArrowRight size={16} /></Link>
+            <a className="text-link light-link" href={siteConfig.bookingUrl}>Let’s Grow Your Business <ArrowRight size={16} /></a>
           </div>
           <div className="benefit-list">
             {benefits.map(([Icon, title, copy], index) => (
@@ -100,12 +99,12 @@ export default function HomePage() {
                 <article className="service-card" key={service.slug}>
                   <div className="service-card-top"><div className="icon-box"><Icon /></div><span>0{index + 1}</span></div>
                   <h3>{service.title}</h3><p>{service.short}</p>
-                  <Link className="text-link" href={`/services#${service.slug}`}>Explore service <ArrowRight size={15} /></Link>
+                  <a className="text-link" href={`/services#${service.slug}`}>Explore service <ArrowRight size={15} /></a>
                 </article>
               );
             })}
           </div>
-          <div className="centered-action"><Link className="button button-secondary" href="/services">Explore All Services <ArrowRight size={17} /></Link></div>
+          <div className="centered-action"><a className="button button-secondary" href="/services">Explore All Services <ArrowRight size={17} /></a></div>
         </div>
       </section>
 
@@ -137,7 +136,7 @@ export default function HomePage() {
               ["Receive Your Customized Marketing Plan", "Get a practical Digital Marketing Plan with clear steps you can start implementing immediately."],
             ].map(([title, copy], index) => <article key={title}><span className="process-number">{index + 1}</span><div><small>Step {index + 1}</small><h3>{title}</h3><p>{copy}</p></div></article>)}
           </div>
-          <div className="centered-action"><Link className="button" href={siteConfig.bookingUrl}>Book Your Free Consultation <ArrowRight size={17} /></Link></div>
+          <div className="centered-action"><a className="button" href={siteConfig.bookingUrl}>Book Your Free Consultation <ArrowRight size={17} /></a></div>
         </div>
       </section>
 
