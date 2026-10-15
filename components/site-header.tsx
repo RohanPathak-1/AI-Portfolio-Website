@@ -45,7 +45,7 @@ export function SiteHeader() {
           {open ? <X /> : <Menu />}
         </button>
       </div>
-      <div className={`mobile-menu ${open ? "is-open" : ""}`} id="mobile-menu">
+      <div className={`mobile-menu ${open ? "is-open" : ""}`} id="mobile-menu" hidden={!open}>
         <nav className="container" aria-label={t("nav.mobile")}>
           <LanguageSwitcher mobile />
           {navigation.map((item) => (
