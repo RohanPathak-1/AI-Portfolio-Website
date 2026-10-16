@@ -1,9 +1,11 @@
 import { NextResponse } from "next/server";
+import { isValidPhoneNumber, parsePhoneNumber } from "libphonenumber-js";
 import { z } from "zod";
 
 const schema = z.object({
   fullName: z.string().trim().min(2).max(100), businessName: z.string().trim().max(120).optional().or(z.literal("")),
   email: z.string().trim().email().max(180), service: z.string().trim().max(140).optional().or(z.literal("")),
+  whatsapp_number: z.string().trim().refine((value) => value.startsWith("+") && isValidPhoneNumber(value), "Invalid international WhatsApp number").transform((value) => parsePhoneNumber(value).number),
   message: z.string().trim().min(20).max(4000), companyFax: z.string().max(0), locale: z.enum(["en", "ne"]).default("en"),
   submittedAt: z.number().int().positive(),
 });
@@ -29,6 +31,7 @@ export async function POST(request: Request) {
       method: "POST", headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         fullName: result.data.fullName, email: result.data.email,
+        whatsapp_number: result.data.whatsapp_number,
         businessName: result.data.businessName || undefined, service: result.data.service || undefined,
         message: result.data.message, locale, source: "Rohan Pathak AI Marketing Portfolio",
       }),
