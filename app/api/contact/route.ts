@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { isValidPhoneNumber, parsePhoneNumber } from "libphonenumber-js";
 import { z } from "zod";
-import { buildFormSubmitPayload, classifyFormSubmitResponse, type FormSubmitResponse } from "@/lib/formsubmit";
+import { buildFormSubmitPayload, classifyFormSubmitResponse, redactProviderMessage, type FormSubmitResponse } from "@/lib/formsubmit";
 
 const FORM_SUBMIT_ENDPOINT = "https://formsubmit.co/ajax/rohanpathak2020@gmail.com";
 const FORM_SUBMIT_SUBJECT = "New Website Inquiry — Rohan Pathak Portfolio";
@@ -37,15 +37,6 @@ export async function POST(request: Request) {
   if (!result.success) return NextResponse.json({ code: "invalid", message: copy[locale].invalid, issues: result.error.flatten().fieldErrors }, { status: 400 });
   if (Date.now() - result.data.submittedAt < 1_500) return NextResponse.json({ code: "invalid", message: copy[locale].invalid }, { status: 400 });
   try {
-    const submission = buildFormSubmitPayload({
-      fullName: result.data.fullName,
-      email: result.data.email,
-      whatsappNumber: result.data.whatsapp_number,
-      businessName: result.data.businessName,
-      service: result.data.service,
-      message: result.data.message,
-    }, FORM_SUBMIT_SUBJECT);
-
     const requestOrigin = new URL(request.url).origin;
     const incomingReferer = request.headers.get("referer");
     let pageUrl = new URL("/contact", requestOrigin).toString();
@@ -57,6 +48,14 @@ export async function POST(request: Request) {
         // Keep the trusted contact-page fallback for malformed referrers.
       }
     }
+    const submission = buildFormSubmitPayload({
+      fullName: result.data.fullName,
+      email: result.data.email,
+      whatsappNumber: result.data.whatsapp_number,
+      businessName: result.data.businessName,
+      service: result.data.service,
+      message: result.data.message,
+    }, FORM_SUBMIT_SUBJECT, pageUrl);
 
     const upstream = await fetch(FORM_SUBMIT_ENDPOINT, {
       method: "POST",
@@ -69,14 +68,36 @@ export async function POST(request: Request) {
       body: JSON.stringify(submission),
       signal: AbortSignal.timeout(12_000),
     });
-    const provider = await upstream.json().catch(() => null) as FormSubmitResponse | null;
+    const responseText = await upstream.text();
+    let provider: FormSubmitResponse | null = null;
+    try {
+      provider = JSON.parse(responseText) as FormSubmitResponse;
+    } catch {
+      // The diagnostic below records only metadata for non-JSON provider responses.
+    }
     const providerStatus = classifyFormSubmitResponse(upstream.ok, provider);
+    const providerMessage = redactProviderMessage(provider?.message ?? provider?.error);
+    const diagnostic = {
+      httpStatus: upstream.status,
+      contentType: upstream.headers.get("content-type"),
+      outcome: providerStatus,
+      success: provider?.success ?? null,
+      message: providerMessage,
+      responseFormat: provider ? "json" : "non-json",
+    };
+    if (providerStatus === "accepted") console.info("[contact/formsubmit]", diagnostic);
+    else console.warn("[contact/formsubmit]", diagnostic);
     if (providerStatus === "activation_required") {
       return NextResponse.json({ code: "activation_required", message: copy[locale].activation }, { status: 409 });
     }
     if (providerStatus !== "accepted") return NextResponse.json({ code: "provider_error", message: copy[locale].unavailable }, { status: 502 });
     return NextResponse.json({ ok: true, acceptedBy: "FormSubmit" }, { status: 201 });
-  } catch {
+  } catch (error) {
+    console.error("[contact/formsubmit]", {
+      outcome: "request_error",
+      name: error instanceof Error ? error.name : "UnknownError",
+      message: redactProviderMessage(error instanceof Error ? error.message : "Unknown provider request error"),
+    });
     return NextResponse.json({ code: "unavailable", message: copy[locale].unavailable }, { status: 502 });
   }
 }

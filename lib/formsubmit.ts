@@ -9,12 +9,13 @@ type Inquiry = {
   message: string;
 };
 
-export function buildFormSubmitPayload(inquiry: Inquiry, subject: string) {
+export function buildFormSubmitPayload(inquiry: Inquiry, subject: string, formUrl: string) {
   return {
     _subject: subject,
     _template: "table",
     _replyto: inquiry.email,
     _honey: "",
+    _url: formUrl,
     "Inquiry Type": "NEW WEBSITE CONTACT INQUIRY",
     "Customer Name": inquiry.fullName,
     "Customer Email": inquiry.email,
@@ -23,6 +24,14 @@ export function buildFormSubmitPayload(inquiry: Inquiry, subject: string) {
     "Service Interested In": inquiry.service || "Not selected",
     "Customer Message": inquiry.message,
   };
+}
+
+export function redactProviderMessage(value: string | undefined) {
+  if (!value) return null;
+  return value
+    .slice(0, 500)
+    .replace(/[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/gi, "[redacted-email]")
+    .replace(/\+?\d[\d\s().-]{7,}\d/g, "[redacted-number]");
 }
 
 export function classifyFormSubmitResponse(responseOk: boolean, payload: FormSubmitResponse | null) {
