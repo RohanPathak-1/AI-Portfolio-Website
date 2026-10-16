@@ -9,10 +9,13 @@ import {
 } from "libphonenumber-js";
 import { FormEvent, useEffect, useRef, useState } from "react";
 import { siteConfig } from "@/config/site";
+import { buildFormSubmitPayload, classifyFormSubmitResponse, type FormSubmitResponse } from "@/lib/formsubmit";
 import { useLanguage } from "./language-provider";
 
 type Fields = { fullName: string; businessName: string; email: string; whatsappNumber: string; service: string; message: string; companyFax: string };
 const initial: Fields = { fullName: "", businessName: "", email: "", whatsappNumber: "", service: "", message: "", companyFax: "" };
+const FORM_SUBMIT_ENDPOINT = "https://formsubmit.co/ajax/rohanpathak2020@gmail.com";
+const FORM_SUBMIT_SUBJECT = "New Website Inquiry — Rohan Pathak Portfolio";
 
 function normalizeWhatsApp(value: string, country: CountryCode) {
   const input = value.trim();
@@ -53,32 +56,37 @@ export function ContactForm() {
     event.preventDefault();
     if (submitting.current) return;
     setStatus(null); const next = validate(); setErrors(next); if (Object.keys(next).length) return;
+    if (fields.companyFax || Date.now() - startedAt.current < 1_500) {
+      setStatus({ type: "error", message: t("form.failure") });
+      return;
+    }
     const whatsappNumber = normalizeWhatsApp(fields.whatsappNumber, country);
     if (!whatsappNumber) return;
     submitting.current = true;
     setLoading(true);
     try {
-      const response = await fetch("/api/contact", {
+      const response = await fetch(FORM_SUBMIT_ENDPOINT, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify(buildFormSubmitPayload({
           fullName: fields.fullName,
           email: fields.email,
-          whatsapp_number: whatsappNumber,
+          whatsappNumber,
           businessName: fields.businessName,
           service: fields.service,
           message: fields.message,
-          companyFax: fields.companyFax,
-          locale,
-          submittedAt: startedAt.current,
-        }),
+        }, FORM_SUBMIT_SUBJECT, window.location.href)),
       });
-      const result = await response.json() as { code?: string; message?: string };
-      if (result.code === "activation_required") {
-        setStatus({ type: "activation", message: result.message });
+      const result = await response.json().catch(() => null) as FormSubmitResponse | null;
+      const providerStatus = classifyFormSubmitResponse(response.ok, result);
+      if (providerStatus === "activation_required") {
+        setStatus({ type: "activation", message: t("form.activation") });
         return;
       }
-      if (!response.ok) throw new Error(result.message || (result.code === "unavailable" ? t("form.unavailable") : t("form.failure")));
+      if (providerStatus !== "accepted") throw new Error(t("form.failure"));
       setStatus({ type: "success" }); setFields(initial); startedAt.current = Date.now();
     } catch (error) { setStatus({ type: "error", message: error instanceof Error ? error.message : t("form.failure") }); }
     finally { submitting.current = false; setLoading(false); }

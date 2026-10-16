@@ -26,14 +26,6 @@ export function buildFormSubmitPayload(inquiry: Inquiry, subject: string, formUr
   };
 }
 
-export function redactProviderMessage(value: string | undefined) {
-  if (!value) return null;
-  return value
-    .slice(0, 500)
-    .replace(/[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/gi, "[redacted-email]")
-    .replace(/\+?\d[\d\s().-]{7,}\d/g, "[redacted-number]");
-}
-
 export function classifyFormSubmitResponse(responseOk: boolean, payload: FormSubmitResponse | null) {
   const providerText = [typeof payload?.success === "string" ? payload.success : "", payload?.message, payload?.error].filter(Boolean).join(" ");
   if (/activat|confirm(?:ation)?\s+(?:your\s+)?email|email\s+confirm/i.test(providerText)) return "activation_required" as const;
