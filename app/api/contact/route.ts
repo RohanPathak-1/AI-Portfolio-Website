@@ -1,6 +1,10 @@
 import { NextResponse } from "next/server";
 import { isValidPhoneNumber, parsePhoneNumber } from "libphonenumber-js";
 import { z } from "zod";
+import { buildFormSubmitPayload, classifyFormSubmitResponse, type FormSubmitResponse } from "@/lib/formsubmit";
+
+const FORM_SUBMIT_ENDPOINT = "https://formsubmit.co/ajax/rohanpathak2020@gmail.com";
+const FORM_SUBMIT_SUBJECT = "New Website Inquiry — Rohan Pathak Portfolio";
 
 const schema = z.object({
   fullName: z.string().trim().min(2).max(100), businessName: z.string().trim().max(120).optional().or(z.literal("")),
@@ -11,8 +15,16 @@ const schema = z.object({
 });
 
 const copy = {
-  en: { invalid: "Please review the highlighted fields and try again.", unavailable: "Messages cannot currently be submitted. Please try again later." },
-  ne: { invalid: "कृपया दिइएको जानकारी जाँचेर फेरि प्रयास गर्नुहोस्।", unavailable: "हाल सन्देश पठाउने सुविधा उपलब्ध छैन। कृपया पछि फेरि प्रयास गर्नुहोस्।" },
+  en: {
+    invalid: "Please review the highlighted fields and try again.",
+    unavailable: "Sorry, your message couldn't be sent right now. Please try again.",
+    activation: "Email delivery is awaiting FormSubmit activation. Please try again after activation is complete.",
+  },
+  ne: {
+    invalid: "कृपया दिइएको जानकारी जाँचेर फेरि प्रयास गर्नुहोस्।",
+    unavailable: "माफ गर्नुहोस्, अहिले तपाईंको सन्देश पठाउन सकिएन। कृपया फेरि प्रयास गर्नुहोस्।",
+    activation: "इमेल पठाउने सुविधा FormSubmit मा सक्रिय हुन बाँकी छ। सक्रिय भएपछि कृपया फेरि प्रयास गर्नुहोस्।",
+  },
 } as const;
 
 export async function POST(request: Request) {
@@ -24,21 +36,29 @@ export async function POST(request: Request) {
   const result = schema.safeParse(input);
   if (!result.success) return NextResponse.json({ code: "invalid", message: copy[locale].invalid, issues: result.error.flatten().fieldErrors }, { status: 400 });
   if (Date.now() - result.data.submittedAt < 1_500) return NextResponse.json({ code: "invalid", message: copy[locale].invalid }, { status: 400 });
-  const endpoint = process.env.CONTACT_FORM_ENDPOINT;
-  if (!endpoint) return NextResponse.json({ code: "unavailable", message: copy[locale].unavailable }, { status: 503 });
   try {
-    const upstream = await fetch(endpoint, {
-      method: "POST", headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        fullName: result.data.fullName, email: result.data.email,
-        whatsapp_number: result.data.whatsapp_number,
-        businessName: result.data.businessName || undefined, service: result.data.service || undefined,
-        message: result.data.message, locale, source: "Rohan Pathak AI Marketing Portfolio",
-      }),
-      signal: AbortSignal.timeout(10_000),
+    const submission = buildFormSubmitPayload({
+      fullName: result.data.fullName,
+      email: result.data.email,
+      whatsappNumber: result.data.whatsapp_number,
+      businessName: result.data.businessName,
+      service: result.data.service,
+      message: result.data.message,
+    }, FORM_SUBMIT_SUBJECT);
+
+    const upstream = await fetch(FORM_SUBMIT_ENDPOINT, {
+      method: "POST",
+      headers: { Accept: "application/json" },
+      body: submission,
+      signal: AbortSignal.timeout(12_000),
     });
-    if (!upstream.ok) throw new Error(`Contact provider returned ${upstream.status}`);
-    return NextResponse.json({ ok: true }, { status: 201 });
+    const provider = await upstream.json().catch(() => null) as FormSubmitResponse | null;
+    const providerStatus = classifyFormSubmitResponse(upstream.ok, provider);
+    if (providerStatus === "activation_required") {
+      return NextResponse.json({ code: "activation_required", message: copy[locale].activation }, { status: 409 });
+    }
+    if (providerStatus !== "accepted") return NextResponse.json({ code: "provider_error", message: copy[locale].unavailable }, { status: 502 });
+    return NextResponse.json({ ok: true, acceptedBy: "FormSubmit" }, { status: 201 });
   } catch {
     return NextResponse.json({ code: "unavailable", message: copy[locale].unavailable }, { status: 502 });
   }

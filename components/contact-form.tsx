@@ -33,6 +33,7 @@ export function ContactForm() {
   const [loading, setLoading] = useState(false);
   const [country, setCountry] = useState<CountryCode>("NP");
   const startedAt = useRef(0);
+  const submitting = useRef(false);
   const countryNames = new Intl.DisplayNames([locale], { type: "region" });
   const countries = getCountries()
     .map((code) => ({ code, name: countryNames.of(code) ?? code, callingCode: getCountryCallingCode(code) }))
@@ -49,9 +50,12 @@ export function ContactForm() {
     return next;
   }
   async function submit(event: FormEvent) {
-    event.preventDefault(); setStatus(null); const next = validate(); setErrors(next); if (Object.keys(next).length) return;
+    event.preventDefault();
+    if (submitting.current) return;
+    setStatus(null); const next = validate(); setErrors(next); if (Object.keys(next).length) return;
     const whatsappNumber = normalizeWhatsApp(fields.whatsappNumber, country);
     if (!whatsappNumber) return;
+    submitting.current = true;
     setLoading(true);
     try {
       const response = await fetch("/api/contact", {
@@ -73,7 +77,7 @@ export function ContactForm() {
       if (!response.ok) throw new Error(result.message || (result.code === "unavailable" ? t("form.unavailable") : t("form.failure")));
       setStatus({ type: "success" }); setFields(initial); startedAt.current = Date.now();
     } catch (error) { setStatus({ type: "error", message: error instanceof Error ? error.message : t("form.failure") }); }
-    finally { setLoading(false); }
+    finally { submitting.current = false; setLoading(false); }
   }
 
   if (status?.type === "success") return <section className="contact-success" role="status" aria-live="polite">

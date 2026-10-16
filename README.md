@@ -39,18 +39,16 @@ Replace `bookingUrl` in `config/site.ts` with the full HTTPS URL from Calendly o
 
 ## Configure inquiry delivery
 
-The form performs client-side and server-side validation, includes a spam honeypot, loading/error/success states, and never pretends a message was sent. Without a provider, it returns a clear configuration message.
+The form performs client-side and server-side validation, includes a spam honeypot, loading/error/success states, and sends validated inquiries to FormSubmit from the server-side Next.js API route.
 
-On Vercel, configure this production environment variable:
+The recipient and subject are configured in `app/api/contact/route.ts`:
 
 ```text
-CONTACT_FORM_ENDPOINT=https://your-secure-form-handler.example/endpoint
+Recipient: rohanpathak2020@gmail.com
+Subject: New Website Inquiry — Rohan Pathak Portfolio
 ```
 
-The endpoint must accept JSON and return a successful 2xx response only after it
-has sent the email or saved the inquiry in an approved CRM or database. Do not
-commit private API keys. Without this variable, a Vercel deployment keeps the
-form in its honest unavailable state instead of showing a false success.
+No Gmail password, Google credential, API token, or Vercel environment variable is required. FormSubmit must still be activated for the recipient address. After deployment, submit one test inquiry, open the activation email sent to the recipient, follow its activation link, and submit another test inquiry to verify actual Gmail delivery.
 
 ## Publish a blog article
 
@@ -68,9 +66,9 @@ The site includes page metadata, canonical URLs, Open Graph foundations, Person 
 
 ## Deployment
 
-Vercel uses `pnpm build`, which produces the standard `.next` output. Add
-`CONTACT_FORM_ENDPOINT` in Project Settings → Environment Variables before
-using the contact form in production.
+Vercel uses `pnpm build`, which produces the standard `.next` output. The
+FormSubmit integration uses standard web APIs and requires no Vercel-specific
+runtime configuration.
 
 For the original ChatGPT Sites packaging pipeline, use `pnpm build:sites`.
 
