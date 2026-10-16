@@ -29,7 +29,7 @@ export function ContactForm() {
   const { locale, t } = useLanguage();
   const [fields, setFields] = useState(initial);
   const [errors, setErrors] = useState<Record<string, string>>({});
-  const [status, setStatus] = useState<{ type: "success" | "error"; message?: string } | null>(null);
+  const [status, setStatus] = useState<{ type: "success" | "activation" | "error"; message?: string } | null>(null);
   const [loading, setLoading] = useState(false);
   const [country, setCountry] = useState<CountryCode>("NP");
   const startedAt = useRef(0);
@@ -74,6 +74,10 @@ export function ContactForm() {
         }),
       });
       const result = await response.json() as { code?: string; message?: string };
+      if (result.code === "activation_required") {
+        setStatus({ type: "activation", message: result.message });
+        return;
+      }
       if (!response.ok) throw new Error(result.message || (result.code === "unavailable" ? t("form.unavailable") : t("form.failure")));
       setStatus({ type: "success" }); setFields(initial); startedAt.current = Date.now();
     } catch (error) { setStatus({ type: "error", message: error instanceof Error ? error.message : t("form.failure") }); }
@@ -106,6 +110,7 @@ export function ContactForm() {
       <div className="field full"><label htmlFor="inquiryMessage">{t("form.message")}</label><textarea id="inquiryMessage" required value={fields.message} onChange={(e) => update("message", e.target.value)} aria-invalid={Boolean(errors.message)} aria-describedby={errors.message ? "message-error" : undefined} />{errors.message && <span id="message-error" className="field-error">{errors.message}</span>}</div>
       <div className="honeypot" aria-hidden="true"><label htmlFor="companyFax">{t("form.honeypot")}</label><input id="companyFax" tabIndex={-1} autoComplete="off" value={fields.companyFax} onChange={(e) => update("companyFax", e.target.value)} /></div>
     </div><p className="form-hint">{t("form.hint")}</p>
+    {status?.type === "activation" && <p className="form-status activation" role="status" aria-live="polite">{status.message}</p>}
     {status?.type === "error" && <p className="form-status error" role="alert">{status.message || t("form.failure")}</p>}
     <button className="button" type="submit" disabled={loading}>{loading ? <><LoaderCircle className="spin" size={17} /> {t("form.sending")}</> : <>{t("form.send")} <Send size={16} /></>}</button>
   </form>;

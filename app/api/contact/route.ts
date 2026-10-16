@@ -46,10 +46,27 @@ export async function POST(request: Request) {
       message: result.data.message,
     }, FORM_SUBMIT_SUBJECT);
 
+    const requestOrigin = new URL(request.url).origin;
+    const incomingReferer = request.headers.get("referer");
+    let pageUrl = new URL("/contact", requestOrigin).toString();
+    if (incomingReferer) {
+      try {
+        const refererUrl = new URL(incomingReferer);
+        if (refererUrl.origin === requestOrigin) pageUrl = refererUrl.toString();
+      } catch {
+        // Keep the trusted contact-page fallback for malformed referrers.
+      }
+    }
+
     const upstream = await fetch(FORM_SUBMIT_ENDPOINT, {
       method: "POST",
-      headers: { Accept: "application/json" },
-      body: submission,
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Origin: requestOrigin,
+        Referer: pageUrl,
+      },
+      body: JSON.stringify(submission),
       signal: AbortSignal.timeout(12_000),
     });
     const provider = await upstream.json().catch(() => null) as FormSubmitResponse | null;
