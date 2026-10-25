@@ -2,19 +2,20 @@
 
 import { Search } from "lucide-react";
 import { useMemo, useState } from "react";
-import { blogCategories, blogPosts } from "@/lib/blog";
+import { blogCategories, blogPosts, localizeBlogPost } from "@/lib/blog";
 import { BlogCard } from "./blog-card";
 import { useLanguage } from "./language-provider";
 
 export function BlogExplorer() {
   const [category, setCategory] = useState("All");
   const [query, setQuery] = useState("");
-  const { t } = useLanguage();
+  const { locale, t } = useLanguage();
   const results = useMemo(() => blogPosts.filter((post) => {
     const categoryMatches = category === "All" || post.category === category;
-    const searchable = `${post.title} ${post.excerpt} ${post.category}`.toLowerCase();
+    const localized = localizeBlogPost(post, locale);
+    const searchable = `${localized.title} ${localized.excerpt} ${t(`blog.category.${post.category}`)}`.toLowerCase();
     return categoryMatches && searchable.includes(query.toLowerCase());
-  }), [category, query]);
+  }), [category, locale, query, t]);
 
   return (
     <div className="blog-explorer" data-reveal>

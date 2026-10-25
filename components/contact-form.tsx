@@ -4,29 +4,18 @@ import { CheckCircle2, LoaderCircle, Send } from "lucide-react";
 import {
   getCountries,
   getCountryCallingCode,
-  parsePhoneNumberFromString,
   type CountryCode,
 } from "libphonenumber-js";
 import { FormEvent, useEffect, useRef, useState } from "react";
 import { siteConfig } from "@/config/site";
 import { buildFormSubmitPayload, classifyFormSubmitResponse, type FormSubmitResponse } from "@/lib/formsubmit";
+import { normalizeWhatsApp } from "@/lib/phone";
 import { useLanguage } from "./language-provider";
 
 type Fields = { fullName: string; businessName: string; email: string; whatsappNumber: string; service: string; message: string; companyFax: string };
 const initial: Fields = { fullName: "", businessName: "", email: "", whatsappNumber: "", service: "", message: "", companyFax: "" };
 const FORM_SUBMIT_ENDPOINT = "https://formsubmit.co/ajax/rohanpathak2020@gmail.com";
 const FORM_SUBMIT_SUBJECT = "New Website Inquiry — Rohan Pathak Portfolio";
-
-function normalizeWhatsApp(value: string, country: CountryCode) {
-  const input = value.trim();
-  if (!input) return null;
-  try {
-    const phone = input.startsWith("+") ? parsePhoneNumberFromString(input) : parsePhoneNumberFromString(input, country);
-    return phone?.isValid() ? phone.number : null;
-  } catch {
-    return null;
-  }
-}
 
 export function ContactForm() {
   const { locale, t } = useLanguage();

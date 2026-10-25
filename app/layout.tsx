@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Manrope } from "next/font/google";
+import { Manrope, Noto_Sans_Devanagari } from "next/font/google";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { MotionController } from "@/components/motion-controller";
@@ -9,6 +9,7 @@ import { siteConfig } from "@/config/site";
 import "./globals.css";
 
 const manrope = Manrope({ subsets: ["latin"], variable: "--font-manrope", display: "swap" });
+const devanagari = Noto_Sans_Devanagari({ subsets: ["devanagari"], variable: "--font-devanagari", display: "swap" });
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.websiteUrl),
@@ -39,7 +40,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   };
 
   return (
-    <html lang="en" className={manrope.variable}>
+    <html lang="en" className={`${manrope.variable} ${devanagari.variable}`}>
       <body>
         <LanguageProvider>
           <MotionController />
