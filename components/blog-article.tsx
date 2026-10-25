@@ -17,7 +17,7 @@ export function BlogArticle({ post, related }: { post: BlogPost; related: BlogPo
         <div className="article-meta"><span>{t(`blog.category.${post.category}`)}</span><time dateTime={post.publishedAt}>{formatDate(post.publishedAt, locale)}</time><span>{localized.readingTime}</span></div>
         <h1>{localized.title}</h1><p>{localized.metaDescription}</p>
       </header>
-      <div className="container"><div className="article-cover"><Image className="blog-image" src={post.image.src} alt={post.image.alt[locale]} fill priority sizes="(max-width: 1228px) calc(100vw - 48px), 1180px" /></div></div>
+      <div className="container"><div className="article-cover"><Image className="article-image" src={post.image.src} alt={post.image.alt[locale]} width={1536} height={1024} priority sizes="(max-width: 1228px) calc(100vw - 48px), 1180px" /></div></div>
       <div className="article-shell article-content">
         {localized.intro.map((paragraph, index) => <p className={index === 0 ? "lead" : ""} key={paragraph}>{paragraph}</p>)}
         {localized.sections.map((section) => <section key={section.heading}><h2>{section.heading}</h2>{section.paragraphs?.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}{section.bullets && <ul>{section.bullets.map((item) => <li key={item}>{item}</li>)}</ul>}</section>)}

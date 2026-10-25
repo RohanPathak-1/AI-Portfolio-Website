@@ -10,6 +10,7 @@ import { FormEvent, useEffect, useRef, useState } from "react";
 import { siteConfig } from "@/config/site";
 import { buildFormSubmitPayload, classifyFormSubmitResponse, type FormSubmitResponse } from "@/lib/formsubmit";
 import { normalizeWhatsApp } from "@/lib/phone";
+import { revealContactSuccess } from "@/lib/contact-success";
 import { useLanguage } from "./language-provider";
 
 type Fields = { fullName: string; businessName: string; email: string; whatsappNumber: string; service: string; message: string; companyFax: string };
@@ -26,11 +27,21 @@ export function ContactForm() {
   const [country, setCountry] = useState<CountryCode>("NP");
   const startedAt = useRef(0);
   const submitting = useRef(false);
+  const successRef = useRef<HTMLElement>(null);
+  const successHeadingRef = useRef<HTMLHeadingElement>(null);
   const countryNames = new Intl.DisplayNames([locale], { type: "region" });
   const countries = getCountries()
     .map((code) => ({ code, name: countryNames.of(code) ?? code, callingCode: getCountryCallingCode(code) }))
     .sort((a, b) => a.name.localeCompare(b.name, locale));
   useEffect(() => { startedAt.current = Date.now(); }, []);
+  useEffect(() => {
+    if (status?.type !== "success" || !successRef.current || !successHeadingRef.current) return;
+    revealContactSuccess(
+      successRef.current,
+      successHeadingRef.current,
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches,
+    );
+  }, [status?.type]);
   function update(name: keyof Fields, value: string) { setFields((current) => ({ ...current, [name]: value })); setErrors((current) => ({ ...current, [name]: "" })); }
   function validate() {
     const next: Record<string, string> = {};
@@ -81,8 +92,8 @@ export function ContactForm() {
     finally { submitting.current = false; setLoading(false); }
   }
 
-  if (status?.type === "success") return <section className="contact-success" role="status" aria-live="polite">
-    <CheckCircle2 aria-hidden="true" /><h2>{t("form.successTitle")}</h2><p>{t("form.successCopy")}</p><a className="button" href="/">{t("common.backHome")}</a>
+  if (status?.type === "success") return <section className="contact-success" ref={successRef} role="status" aria-live="polite" aria-labelledby="contact-success-title">
+    <CheckCircle2 aria-hidden="true" /><h2 id="contact-success-title" ref={successHeadingRef} tabIndex={-1}>{t("form.successTitle")}</h2><p>{t("form.successCopy")}</p><a className="button" href="/">{t("common.backHome")}</a>
   </section>;
 
   return <form className="contact-form" onSubmit={submit} noValidate>

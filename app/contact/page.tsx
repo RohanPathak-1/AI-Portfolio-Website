@@ -4,6 +4,7 @@ import type { LucideIcon } from "lucide-react";
 import { ContactForm } from "@/components/contact-form";
 import { FocusCardGroup } from "@/components/focus-card-group";
 import { T } from "@/components/language-provider";
+import { InnerPageHeroVisual } from "@/components/inner-page-hero-visual";
 
 export const metadata: Metadata = {
   title: "Contact & Free Consultation",
@@ -19,9 +20,10 @@ export default function ContactPage() {
   return (
     <>
       <section className="page-hero">
-        <div className="container">
-          <div className="breadcrumb"><a href="/"><T id="common.home" /></a><span>/</span><span><T id="contact.label" /></span></div>
-          <div className="eyebrow"><T id="contact.eyebrow" /></div><h1><T id="contact.title" /></h1><p><T id="contact.intro" /></p>
+        <div className="container page-hero-grid">
+          <div className="page-hero-copy"><div className="breadcrumb"><a href="/"><T id="common.home" /></a><span>/</span><span><T id="contact.label" /></span></div>
+          <div className="eyebrow"><T id="contact.eyebrow" /></div><h1><T id="contact.title" /></h1><p><T id="contact.intro" /></p></div>
+          <InnerPageHeroVisual variant="contact" />
         </div>
       </section>
 

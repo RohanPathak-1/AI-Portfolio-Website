@@ -4,6 +4,7 @@ import { BlogExplorer } from "@/components/blog-explorer";
 import { ConsultationCta } from "@/components/consultation-cta";
 import { siteConfig } from "@/config/site";
 import { T } from "@/components/language-provider";
+import { InnerPageHeroVisual } from "@/components/inner-page-hero-visual";
 
 export const metadata: Metadata = {
   title: "AI Marketing Tips & Business Growth Strategies",
@@ -17,9 +18,10 @@ export default function BlogPage() {
   return (
     <>
       <section className="page-hero">
-        <div className="container">
-          <div className="breadcrumb"><a href="/"><T id="common.home" /></a><span>/</span><span><T id="blog.label" /></span></div>
-          <div className="eyebrow"><T id="blog.eyebrow" /></div><h1><T id="blog.title" /></h1><p><T id="blog.intro" /></p>
+        <div className="container page-hero-grid">
+          <div className="page-hero-copy"><div className="breadcrumb"><a href="/"><T id="common.home" /></a><span>/</span><span><T id="blog.label" /></span></div>
+          <div className="eyebrow"><T id="blog.eyebrow" /></div><h1><T id="blog.title" /></h1><p><T id="blog.intro" /></p></div>
+          <InnerPageHeroVisual variant="blog" />
         </div>
       </section>
 

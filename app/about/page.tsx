@@ -3,6 +3,7 @@ import { ArrowRight, Building2, CheckCircle2 } from "lucide-react";
 import { ConsultationCta } from "@/components/consultation-cta";
 import { FocusCardGroup } from "@/components/focus-card-group";
 import { ProfileVisual } from "@/components/profile-visual";
+import { InnerPageHeroVisual } from "@/components/inner-page-hero-visual";
 import { siteConfig } from "@/config/site";
 import { T } from "@/components/language-provider";
 
@@ -16,9 +17,10 @@ export default function AboutPage() {
   return (
     <>
       <section className="page-hero">
-        <div className="container">
-          <div className="breadcrumb"><a href="/"><T id="common.home" /></a><span>/</span><span><T id="about.label" /></span></div>
-          <div className="eyebrow"><T id="about.eyebrow" /></div><h1><T id="about.title" /></h1><p><T id="about.intro" /></p>
+        <div className="container page-hero-grid">
+          <div className="page-hero-copy"><div className="breadcrumb"><a href="/"><T id="common.home" /></a><span>/</span><span><T id="about.label" /></span></div>
+          <div className="eyebrow"><T id="about.eyebrow" /></div><h1><T id="about.title" /></h1><p><T id="about.intro" /></p></div>
+          <InnerPageHeroVisual variant="about" />
         </div>
       </section>
 
